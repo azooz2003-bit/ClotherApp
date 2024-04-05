@@ -24,7 +24,12 @@ class HomeViewModel {
     */
     var navPath: NavigationPath
     
-    // TODO: implement the initializer for this class
+    init() {
+        self.activeHomeScreen = .clothes
+        clothingOnDisplay = nil
+        outfitOnDisplay = nil
+        navPath = NavigationPath()
+    }
     
     // TODO: Return to the screen visited prior to the current one. Do so by popping the end of the navigation path. Handle edge cases, if any.
     func navigateBackwards() {

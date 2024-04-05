@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-struct FormEntry: View {
+struct FormEntry<T>: View where T : Clothing.Property {
+       
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+       Text("n/a")
     }
 }
 
 #Preview {
-    FormEntry()
+    FormEntry<Clothing.Color>()
 }

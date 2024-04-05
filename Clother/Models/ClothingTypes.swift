@@ -15,23 +15,45 @@ protocol ClosetItem: Identifiable, Hashable {
 
 struct Clothing {
     
-    enum Kind {
+    enum Kind: String, Property {
+        var id: String  {self.rawValue}
+
         case top, bottom, shoes, accessories
+        
     }
     
-    enum Size {
+    enum Size: String, Property {
+        var id: String  {self.rawValue}
+
         case small, medium, large
+        
     }
     
-    enum Color {
+    enum Color: String, Property {
+        var id: String  {self.rawValue}
+
         case red, blue, green, yellow, purple, orange, pink, black, navy, white
+        
     }
     
-    enum Weather {
+    enum Weather: String, Property {
+        var id: String  {self.rawValue}
+
         case warm, rainy, cold, freezing
+        
     }
     
-    enum Fabric {
+    enum Fabric: String, Property {
+        var id: String  {self.rawValue}
+        
         case cotton, linen, leather, silk, denim, wool, other
+        
     }
+    
+    protocol Property: Identifiable, Hashable, CaseIterable {
+        var id: String { get }
+    }
+    
+    
 }
+

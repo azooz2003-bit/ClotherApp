@@ -7,7 +7,23 @@
 
 import Foundation
 
+//TODO: make the necessary additions so that the view model properties can trigger view updates. HINT: think about what protocol and property wrapper to use.
 class ClothesViewModel {
+    
+    // These represent the complete, unfiltered collection of closet items.
+    var userOutfits: [OutfitItem]
+    var userClothes: [ClothingItem]
+    
+    // These represent the outfits/clothes that the user is looking at per provided filters (if any) and provided search input (if any).
+    var outfitsOnDisplay: [OutfitItem]
+    var clothesOnDisplay: [ClothingItem]
+    
+    init() {
+        self.userOutfits = []
+        self.userClothes = []
+        self.outfitsOnDisplay = []
+        self.clothesOnDisplay = []
+    }
     
     // TODO: Creates an outfit item and stores it in our application.
     func createOutfit(top: ClothingItem, bottom: ClothingItem, shoes: ClothingItem, other: [ClothingItem]) {
@@ -32,19 +48,34 @@ class ClothesViewModel {
     }
     
     
-    // Saves the outfit to the necessary collections.
+    // TODO: Saves the outfit to the necessary collections.
     func saveOutfit(item: OutfitItem) {
         
     }
     
-    // Manipulate the closet items on display such that only items with the provided input in their name are visible.
+    // TODO: Manipulate the closet items on display such that only items with the provided input in their name are visible.
     func search(input: String) {
         
     }
     
-    // Manipulate the closet items on display such that only items with the provided filters are visible.
-    func filterBy() {
+    // TODO: Manipulate the closet items on display such that only items with the provided filters are visible.
+    /*
+     If a given parameter is nil, it means that no filter was applied for it.
+     */
+    func filterClothes(by filter: Filter) {
+        
+    }
+    
+    func filterOutfits(topFilter: Filter, bottomFilter: Filter, shoesFilter: Filter) {
         
     }
 
+}
+
+struct Filter {
+    var type: Clothing.Kind?
+    var size: Clothing.Size? 
+    var color: Clothing.Color?
+    var weather: Clothing.Weather?
+    var fabric: Clothing.Fabric?
 }

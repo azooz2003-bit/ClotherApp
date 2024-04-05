@@ -29,6 +29,9 @@
 		A3CB23C82BBF9AC3005CBCF4 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CB23C72BBF9AC3005CBCF4 /* SearchBar.swift */; };
 		A3CB23CC2BBFAE75005CBCF4 /* FormEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CB23CB2BBFAE75005CBCF4 /* FormEntry.swift */; };
 		A3CB23CD2BBFC523005CBCF4 /* NavigationExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CB23C92BBF9F74005CBCF4 /* NavigationExample.swift */; };
+		A3CB23CF2BC0B638005CBCF4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CB23CE2BC0B638005CBCF4 /* ImagePicker.swift */; };
+		A3CB23D12BC0BB41005CBCF4 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CB23D02BC0BB41005CBCF4 /* ImagePickerView.swift */; };
+		A3CB23D32BC0BD37005CBCF4 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CB23D22BC0BD37005CBCF4 /* CameraView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +58,9 @@
 		A3CB23C72BBF9AC3005CBCF4 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A3CB23C92BBF9F74005CBCF4 /* NavigationExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationExample.swift; sourceTree = "<group>"; };
 		A3CB23CB2BBFAE75005CBCF4 /* FormEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormEntry.swift; sourceTree = "<group>"; };
+		A3CB23CE2BC0B638005CBCF4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		A3CB23D02BC0BB41005CBCF4 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		A3CB23D22BC0BD37005CBCF4 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +155,9 @@
 				A3CB23C52BBF6A4A005CBCF4 /* OutfitItemView.swift */,
 				A3CB23CB2BBFAE75005CBCF4 /* FormEntry.swift */,
 				A3CB23C72BBF9AC3005CBCF4 /* SearchBar.swift */,
+				A3CB23CE2BC0B638005CBCF4 /* ImagePicker.swift */,
+				A3CB23D02BC0BB41005CBCF4 /* ImagePickerView.swift */,
+				A3CB23D22BC0BD37005CBCF4 /* CameraView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -226,6 +235,7 @@
 				A3CB23A92BBF62C6005CBCF4 /* ClothingItem.swift in Sources */,
 				A3CB23B92BBF691C005CBCF4 /* ConfirmRandomOutfitView.swift in Sources */,
 				A3CB23AF2BBF68B1005CBCF4 /* HomeView.swift in Sources */,
+				A3CB23CF2BC0B638005CBCF4 /* ImagePicker.swift in Sources */,
 				A3CB23C42BBF6A3A005CBCF4 /* ClothingItemView.swift in Sources */,
 				A3CB23CC2BBFAE75005CBCF4 /* FormEntry.swift in Sources */,
 				A3CB23BD2BBF6957005CBCF4 /* ClothingDetailView.swift in Sources */,
@@ -238,7 +248,9 @@
 				A3CB23C22BBF69C8005CBCF4 /* ClosetGrid.swift in Sources */,
 				A3CB23BB2BBF6946005CBCF4 /* OutfitDetailView.swift in Sources */,
 				A3CB23A52BBF61A4005CBCF4 /* ClothesViewModel.swift in Sources */,
+				A3CB23D12BC0BB41005CBCF4 /* ImagePickerView.swift in Sources */,
 				A3CB23C62BBF6A4A005CBCF4 /* OutfitItemView.swift in Sources */,
+				A3CB23D32BC0BD37005CBCF4 /* CameraView.swift in Sources */,
 				A3CB23AB2BBF63A1005CBCF4 /* ClothingTypes.swift in Sources */,
 				A3CB23B32BBF68DC005CBCF4 /* ClothingFormView.swift in Sources */,
 				A3CB23CD2BBFC523005CBCF4 /* NavigationExample.swift in Sources */,

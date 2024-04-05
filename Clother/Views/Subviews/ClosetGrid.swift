@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct ClosetGrid: View {
+struct ClosetGrid<T>: View where T : ClosetItem  {
     
     // A custom closure or functionality to be executed upon clicking on a grid item. Takes in the selected closet item.
-    let onItemSelection: (any ClosetItem) -> Void
+    let onItemSelection: (T) -> Void
     
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
@@ -18,7 +18,7 @@ struct ClosetGrid: View {
 }
 
 #Preview {
-    ClosetGrid(onItemSelection: {
+    ClosetGrid<ClothingItem>(onItemSelection: {
         _ in
         
     })
