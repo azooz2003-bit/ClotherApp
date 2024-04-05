@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct SwiftUIView: View {
+
+//IGNORE
+struct NavigationExample: View {
     
     @State var path = NavigationPath()
     
@@ -15,16 +17,20 @@ struct SwiftUIView: View {
         NavigationStack(path: $path, root: {
             
             Button("Click to go to next number", action: {
-                print(path.isEmpty)
-                path.append(Int.random(in: 0...1000))
-            }).navigationDestination(for: Int.self, destination: {
                 
-                Button("\($0). Click to go to next number", action: {
+                path.append(Int.random(in: 0...1000))
+                
+            })
+            .navigationDestination(for: Int.self, destination: { pathElement in
+                
+                Button("\(pathElement). Click to go to next number", action: {
                     path.append(Int.random(in: 0...1000))
                 })
+                
                 Button("Back") {
                     path.removeLast()
                 }
+                
             })
             
             
@@ -34,5 +40,5 @@ struct SwiftUIView: View {
 }
 
 #Preview {
-    SwiftUIView()
+    NavigationExample()
 }
