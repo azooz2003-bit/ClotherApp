@@ -56,7 +56,8 @@ struct NavigationExample: View {
         
     }
 }
-
 ```
 
 ## Codebase Diagram
+[![diagram](https://github.com/azooz2003-bit/ClotherApp/assets/67667005/1543eff5-9510-4893-b653-48eb378f6352 'a diagram')]([https://codecademy.com](https://app.diagrams.net/#G1qLBkZTP4UnzELIIeCISMf3nUIK6pMGCs#%7B%22pageId%22%3A%22C5RBs43oDa-KdzZeNtuy%22%7D))
+
