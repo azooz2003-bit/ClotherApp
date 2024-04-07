@@ -102,6 +102,11 @@ struct ImageView: View {
 
 ```
 
+### Bonus Features
+A few bonus features to consider implementing should you finish all app features early:
+- Cache user data on device using the CoreData framework or SwiftData framework.
+- Implement object isolation on clothing snapshots, same feature the Photos app uses (https://developer.apple.com/videos/play/wwdc2023/10176/). 
+
 ## Codebase Diagram - *click to visit*
 [![diagram](https://github.com/azooz2003-bit/ClotherApp/assets/67667005/1543eff5-9510-4893-b653-48eb378f6352 'a diagram')](https://app.diagrams.net/#G1qLBkZTP4UnzELIIeCISMf3nUIK6pMGCs#%7B%22pageId%22%3A%22C5RBs43oDa-KdzZeNtuy%22%7D)
 
