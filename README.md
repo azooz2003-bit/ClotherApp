@@ -102,6 +102,9 @@ struct ImageView: View {
 
 ```
 
+### Photo Picker & Camera
+We'll be using `@EnvironmentObject` property wrapper in all views beside `HomeView`. It allows for an easier sharing of class objects among subviews and screens. Research it to gain an understanding of how it works before proceeding (how to receive it in other views, etc.).
+
 ### Bonus Features
 A few bonus features to consider implementing should you finish all app features early:
 - Cache user data on device using the CoreData framework or SwiftData framework.
