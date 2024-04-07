@@ -10,7 +10,7 @@ import SwiftUI
 struct SearchBar: View {
     
     // A closure to be executed whenever a new search text is entered. Argument should be search input.
-    var onSearch: (String) -> Void
+    let onSearch: (String) -> Void
     
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
