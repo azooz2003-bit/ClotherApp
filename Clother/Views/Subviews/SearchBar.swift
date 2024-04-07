@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchBar: View {
     
-    // A closure to be executed whenever a new search text is entered.
+    // A closure to be executed whenever a new search text is entered. Argument should be search input.
     var onSearch: (String) -> Void
     
     var body: some View {

@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct NameTextField: View {
-    @Binding var nameInput: String
+    
+    // TODO: this variable is missing something that will allow us to share it's value with the superview.
+    var nameInput: String
     
     var body: some View {
-        TextField("", text: $nameInput)
+        Text("")
     }
 }
 
 #Preview {
-    NameTextField(nameInput: .constant(""))
+    NameTextField(nameInput: "")
 }
