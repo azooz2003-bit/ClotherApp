@@ -14,6 +14,7 @@ struct HomeView: View {
         - Build the home view UI, which includes the toggle between the 'Clothes' section and 'Outfits' section.
         - Observe the UI components implemented under subviews folder. Do not reimplement a subview that has been built, use the subviews given to you as much as possible.
         - Navigation should also work in this view. This screen can jump to multiple views as shown in Figma. Utilize the view model functions and variables for navigation. Since this is the root view, don't forget to wrap it with a navigation stack.
+        - Your view models should be injected into the navigation and subview hierarchies as an 'environment object'.
      */
 
     var body: some View {
