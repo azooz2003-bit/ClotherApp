@@ -58,7 +58,7 @@ class ClothesViewModel {
         
     }
     
-    // TODO: Manipulate the closet items on display such that only items with the provided filters are visible.
+    // TODO: Manipulate the clothing items on display such that only items with the provided filters are visible.
     /*
      If a given parameter is nil, it means that no filter was applied for it.
      */
@@ -66,6 +66,10 @@ class ClothesViewModel {
         
     }
     
+    // TODO: Manipulate the outfit items on display such that only items with the provided filters are visible.
+    /*
+     If a given parameter is nil, it means that no filter was applied for it.
+     */
     func filterOutfits(topFilter: Filter, bottomFilter: Filter, shoesFilter: Filter) {
         
     }

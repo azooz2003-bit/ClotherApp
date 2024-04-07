@@ -11,6 +11,7 @@ import SwiftUI
 protocol ClosetItem: Identifiable, Hashable {
     var id: UUID {get}
     var name: String {get}
+    var displayImage: Data? {get}
 }
 
 struct Clothing {

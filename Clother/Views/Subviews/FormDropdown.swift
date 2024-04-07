@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FormEntry<T>: View where T : Clothing.Property {
+struct FormDropdown<T>: View where T : Clothing.Property {
        
     var body: some View {
        Text("n/a")
@@ -15,5 +15,5 @@ struct FormEntry<T>: View where T : Clothing.Property {
 }
 
 #Preview {
-    FormEntry<Clothing.Color>()
+    FormDropdown<Clothing.Color>()
 }

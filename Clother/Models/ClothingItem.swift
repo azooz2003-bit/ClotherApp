@@ -15,8 +15,8 @@ struct ClothingItem: ClosetItem {
     let color: Clothing.Color?
     let weather: Clothing.Weather?
     let fabric: Clothing.Fabric?
-    let image: Data?
+    let displayImage: Data?
     
-    static let sample = ClothingItem(name: "Abercrombie", type: .bottom, size: .medium, color: .red, weather: .cold, fabric: .cotton, image: nil)
+    static let sample = ClothingItem(name: "Abercrombie", type: .bottom, size: .medium, color: .red, weather: .cold, fabric: .cotton, displayImage: nil)
     
 }

@@ -11,9 +11,11 @@ struct ClosetGrid<T>: View where T : ClosetItem  {
     
     // A custom closure or functionality to be executed upon clicking on a grid item. Takes in the selected closet item.
     let onItemSelection: (T) -> Void
+    // The closet items to be displayed in this grid.
+    let closetItems: [T]
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("")
     }
 }
 
@@ -21,5 +23,5 @@ struct ClosetGrid<T>: View where T : ClosetItem  {
     ClosetGrid<ClothingItem>(onItemSelection: {
         _ in
         
-    })
+    }, closetItems: [.sample, .sample])
 }

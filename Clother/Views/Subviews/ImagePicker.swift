@@ -10,7 +10,7 @@ import UIKit
 
 struct ImagePicker: UIViewControllerRepresentable {
     
-    @Binding var image: Image?
+    @Binding var image: UIImage?
     @Binding var isShown: Bool
     var sourceType: UIImagePickerController.SourceType
     
@@ -31,10 +31,10 @@ struct ImagePicker: UIViewControllerRepresentable {
 
 class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
-    @Binding var image: Image?
+    @Binding var image: UIImage?
     @Binding var isShown: Bool
     
-    init(image: Binding<Image?>, isShown: Binding<Bool>) {
+    init(image: Binding<UIImage?>, isShown: Binding<Bool>) {
         _image = image
         _isShown = isShown
     }
@@ -45,7 +45,7 @@ class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImageP
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let uiimage = info[.originalImage] as! UIImage
-        image = Image(uiImage: uiimage)
+        image = uiimage
         isShown = false
     }
 }

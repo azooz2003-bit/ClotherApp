@@ -14,7 +14,7 @@ class HomeViewModel {
     // Indicates whether clothes or outfits are being displayed on the home screen.
     var activeHomeScreen: HomeScreen
     
-    // Is nil if no particular clothing / outfit is being viewed. Has a value if a user is looking at a closet item.
+    // Is nil if no particular clothing / outfit is being viewed. Has a value if a user is looking at a particular item.
     var clothingOnDisplay: ClothingItem?
     var outfitOnDisplay: OutfitItem?
     

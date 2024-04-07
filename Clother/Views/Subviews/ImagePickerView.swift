@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ImagePickerView: View {
     @Binding var showImagePicker: Bool
-    @Binding var image: Image?
+    @Binding var image: UIImage?
     
     var body: some View {
         ImagePicker(image: $image, isShown: $showImagePicker, sourceType: .photoLibrary)
@@ -17,5 +17,5 @@ struct ImagePickerView: View {
 }
 
 #Preview {
-    ImagePickerView(showImagePicker: .constant(false), image: .constant(.init("")))
+    ImagePickerView(showImagePicker: .constant(false), image: .constant(.init(imageLiteralResourceName: "")))
 }
