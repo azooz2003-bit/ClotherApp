@@ -59,6 +59,48 @@ struct NavigationExample: View {
 ```
 
 ### Photo Picker & Camera
+Support for photo library and camera access is yet to be provided in SwiftUI, thus we have created a reusable photo picker and camera view using the UIKit framework (SwiftUI's predecessor). The views were initialized in UIKit, however you can use them as you like in your SwiftUI code. The provided views are:
+- `ImagePickerView(showImagePicker: image: )`: accesses the photo library of the device in the form of a view, takes in a binding to a boolean indicating whether it should be displayed, and a binding to an image which it will manipulate as the user selects an image.
+- `CameraView(showCamera: image: )`: accesses the camera of the device in the form of a view, takes in a binding to a boolean indicating whether it should be displayed, and a binding to an image which it will manipulate as the user takes photos.
+
+Take the below code as an example.
+
+```swift
+struct ImageView: View {
+    @State var image: UIImage? = nil
+    @State var showPicker = false
+    @State var showCam = false
+    
+    var body: some View {
+        VStack {
+            Button("Click to bring picker.") {
+                showPicker = true
+            }
+            Button("Click to enable camera.") {
+                showCam = true
+            }
+            
+            if let image = image {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .sheet(isPresented: $showPicker, content: {
+            ImagePickerView(showImagePicker: $showPicker, image: $image)
+        })
+        .overlay(content: {
+            if showCam {
+                CameraView(showCamera: $showCam, image: $image)
+                    .ignoresSafeArea()
+            }
+        })
+    }
+    
+}
+
+```
 
 ## Codebase Diagram - *click to visit*
 [![diagram](https://github.com/azooz2003-bit/ClotherApp/assets/67667005/1543eff5-9510-4893-b653-48eb378f6352 'a diagram')](https://app.diagrams.net/#G1qLBkZTP4UnzELIIeCISMf3nUIK6pMGCs#%7B%22pageId%22%3A%22C5RBs43oDa-KdzZeNtuy%22%7D)
