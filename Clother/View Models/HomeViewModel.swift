@@ -41,7 +41,7 @@ class HomeViewModel {
         
     }
     
-    // TODO: Returns to the home screen. Remember that the home screen is presented only when the navigation path is empty.
+    // TODO: Returns to the home screen. HINT: Remember that the home screen is presented only when the navigation path is empty
     func returnToHome() {
     
     }

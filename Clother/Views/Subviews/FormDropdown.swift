@@ -10,6 +10,10 @@ import SwiftUI
 struct FormDropdown<T>: View where T : Clothing.Property {
     
     // TODO: this variable is missing something that will allow us to share it's value with the superview.
+    let promptTitle: String
+    var options: [T] {
+        T.allCases as! [T]
+    }
     var selectedItem: T? = nil
        
     var body: some View {
@@ -18,5 +22,5 @@ struct FormDropdown<T>: View where T : Clothing.Property {
 }
 
 #Preview {
-    FormDropdown<Clothing.Color>()
+    FormDropdown<Clothing.Color>(promptTitle: "color")
 }

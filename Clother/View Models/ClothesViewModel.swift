@@ -36,15 +36,14 @@ class ClothesViewModel {
     }
     
     /* TODO: Randomly creates an outfit out of the provided constraints and returns it. Do not store it anywhere.
-        Instead of an OutfitItem, you will return a tuple of 3 values in the form of (top, bottom, shoes). If no top/bottom/shoes are available on the app, return nil.
+        Instead of an OutfitItem, you will return a tuple of 3 values in the form of (top, bottom, shoes, accessories). If no top/bottom/shoes are available on the app, return nil.
         If a provided constraint is nil, it will not be enforced. HINT: you can utilize createOutfit(...) to avoid repeating code.
         NOTE: leave the name to be empty.
      */
     func generateRandomOutfit(type: Clothing.Kind?, size: Clothing.Size?, color: Clothing.Color?, weather: Clothing.Weather?, fabric: Clothing.Fabric?)
-    -> (ClothingItem, ClothingItem, ClothingItem)? {
-        
+    -> (ClothingItem, ClothingItem, ClothingItem, [ClothingItem])? {
         // placeholder
-        return (.sample, .sample, .sample)
+        return (.sample, .sample, .sample, [.sample])
     }
     
     
