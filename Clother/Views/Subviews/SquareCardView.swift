@@ -17,7 +17,6 @@ struct SquareCardView<Content: View>: View {
     
     var body: some View {
             ZStack {
-            
                 Color(red: 0.957, green: 0.965, blue: 0.988, opacity: 0.50)
                     .cornerRadius(20)
                     .overlay(
@@ -34,6 +33,7 @@ struct SquareCardView<Content: View>: View {
 
     struct SquareCardView_Previews: PreviewProvider {
         static var previews: some View {
+
             SquareCardView(content: {
                 VStack {
                     Image(systemName: "plus")
