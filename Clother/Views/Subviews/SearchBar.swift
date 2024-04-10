@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CustomSearchBar: View {
     @Binding var searchText: String
-    var onSearch: () -> Void
+    var onSearch: (Bool) -> Void
     var onSettings: () -> Void
     
     var body: some View {
@@ -17,8 +17,8 @@ struct CustomSearchBar: View {
            Image(systemName: "magnifyingglass")
                 .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 1.0))
             
-            TextField("Search", text: $searchText, onCommit: onSearch)
-                .foregroundColor(Color(red: 0.957, green: 0.965, blue: 0.988, opacity: 0.60))
+            TextField("Search", text: $searchText, onEditingChanged: onSearch)
+                .foregroundColor(.gray)
                 .fontDesign(.monospaced)
             
             Button(action: onSettings) {
@@ -41,7 +41,7 @@ struct CustomSearchBar_Previews: PreviewProvider {
     static var previews: some View {
         CustomSearchBar(
             searchText: .constant(""),
-            onSearch: { print("Search") },
+            onSearch: { _ in print("Search") },
             onSettings: { print("Settings") }
         )
     }
