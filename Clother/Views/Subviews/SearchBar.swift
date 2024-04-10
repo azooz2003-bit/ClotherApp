@@ -11,16 +11,11 @@ struct CustomSearchBar: View {
     @Binding var searchText: String
     var onSearch: (Bool) -> Void
     var onSettings: () -> Void
-
-    
-    init(onSearch: @escaping (String) -> Void) {
-        self.onSearch = onSearch
-    }
     
     // A closure to be executed whenever a new search text is entered. Argument should be search input.
     var body: some View {
         HStack {
-           Image(systemName: "magnifyingglass")
+            Image(systemName: "magnifyingglass")
                 .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 1.0))
             
             TextField("Search", text: $searchText, onEditingChanged: onSearch)
@@ -40,8 +35,9 @@ struct CustomSearchBar: View {
                 .stroke(Color.gray.opacity(0.3), lineWidth: 1)
         )
         .padding(.horizontal)
-
+        
     }
+}
 
 struct CustomSearchBar_Previews: PreviewProvider {
     static var previews: some View {
