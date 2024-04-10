@@ -16,7 +16,7 @@ struct RoundedButton: View {
     var body: some View {
         Button(action: onPress) {
             Image(systemName: icon)
-            font(.title)
+                .font(.title)
                 .foregroundColor(.white)
         }
         .padding()
@@ -33,6 +33,6 @@ struct RoundedButton: View {
 
 
 #Preview {
-    RoundedButton(onPress: {}, icon: " ")
+    RoundedButton(onPress: {}, icon: "plus")
         .previewLayout(.sizeThatFits)
 }
