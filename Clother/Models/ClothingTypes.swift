@@ -51,10 +51,9 @@ struct Clothing {
         
     }
     
-    protocol Property: Identifiable, Hashable, CaseIterable {
-        var id: String { get }
-    }
-    
     
 }
 
+protocol Property: Identifiable, Hashable, CaseIterable {
+    var id: String { get }
+}

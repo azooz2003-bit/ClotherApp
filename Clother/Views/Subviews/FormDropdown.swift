@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FormDropdown<T>: View where T : Clothing.Property {
+struct FormDropdown<T>: View where T : Property {
     
     // TODO: this variable is missing something that will allow us to share it's value with the superview.
     let promptTitle: String
