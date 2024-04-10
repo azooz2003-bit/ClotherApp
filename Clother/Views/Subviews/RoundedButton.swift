@@ -16,17 +16,18 @@ struct RoundedButton: View {
     var body: some View {
         Button(action: onPress) {
             Image(systemName: icon)
+                .frame(width: 80, height: 80)
                 .font(.title)
-                .foregroundColor(.white)
+                .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 0.6))
+                .background(Color(red: 0.957, green: 0.965, blue: 0.988, opacity: 1.0))
+                .clipShape(Circle())
+                .overlay(
+                    Circle()
+                        .stroke(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 0.2), lineWidth: 2)
+                )
+
         }
-        .padding()
-        .background(Color.gray.opacity(0.2))
-        .clipShape(Circle())
-        .overlay(
-            Circle()
-                .stroke(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 1.0), lineWidth: 1)
-        )
-        .shadow(radius: 5)
+        
         
     }
 }
