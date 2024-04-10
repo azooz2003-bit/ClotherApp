@@ -14,10 +14,25 @@ struct RoundedButton: View {
     let icon: String
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button(action: onPress) {
+            Image(systemName: icon)
+            font(.title)
+                .foregroundColor(.white)
+        }
+        .padding()
+        .background(Color.gray.opacity(0.2))
+        .clipShape(Circle())
+        .overlay(
+            Circle()
+                .stroke(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 1.0), lineWidth: 1)
+        )
+        .shadow(radius: 5)
+        
     }
 }
 
+
 #Preview {
-    RoundedButton(onPress: {}, icon: "")
+    RoundedButton(onPress: {}, icon: " ")
+        .previewLayout(.sizeThatFits)
 }

@@ -15,10 +15,27 @@ struct SquareCardView: View {
     let subHeading: String?
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            ZStack {
+                if let image = image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } else {
+                    Color(red: 0.957, green: 0.965, blue: 0.988, opacity: 0.50)
+                        .cornerRadius(20)
+                        .frame(minWidth: 100, idealWidth: 200, maxWidth: 200, minHeight: 100, idealHeight: 200, maxHeight: 200)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 0.20), lineWidth: 3)
+                            )
+                    
+                }
+            }
+        }
     }
-}
 
-#Preview {
-    SquareCardView(image: nil, subHeading: "Top")
-}
+    struct SquareCardView_Previews: PreviewProvider {
+        static var previews: some View {
+            SquareCardView(image: nil, subHeading: "Top")
+        }
+    }

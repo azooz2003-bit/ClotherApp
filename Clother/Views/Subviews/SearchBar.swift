@@ -8,17 +8,25 @@
 import SwiftUI
 
 struct SearchBar: View {
-    
-    // A closure to be executed whenever a new search text is entered. Argument should be search input.
+    @State private var searchText = ""
     let onSearch: (String) -> Void
     
+    init(onSearch: @escaping (String) -> Void) {
+            self.onSearch = onSearch
+        }
+    
+    // A closure to be executed whenever a new search text is entered. Argument should be search input.
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            TextField("Search", text: $searchText, onCommit: {
+                onSearch(searchText)
+            })
+        }
     }
-}
 
-#Preview {
-    SearchBar(onSearch: { prompt in
-        print("User searched: \(prompt)")
-    })
+    struct SearchBar_Previews: PreviewProvider {
+        static var previews: some View {
+            SearchBar(onSearch: { prompt in
+                print("User searched: \(prompt)")
+            })
+        }
 }
