@@ -25,6 +25,7 @@ struct RoundedButton: View {
                     Circle()
                         .stroke(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 0.2), lineWidth: 2)
                 )
+
         }
         
         
