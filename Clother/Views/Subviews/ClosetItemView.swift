@@ -17,43 +17,44 @@ struct ClosetItemView<T>: View where T : ClosetItem {
     let onPress: (T) -> Void
     
     var body: some View {
-        ZStack (alignment: .bottomLeading){
-            VStack {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .foregroundColor(Color(red: 0.96, green: 0.96, blue: 0.99))
-                    
-                    if let imageData = closetItem.displayImage, let uiImage = UIImage(data: imageData) {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 150, height: 150)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                    } else {
-                        Image(systemName: "photo")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 150, height: 150)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                    }
-                }
-                .frame(width:200, height:200)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 15)
-                        .stroke(Color(red: 0.53, green: 0.55, blue: 0.62).opacity(0.25), lineWidth: 6)
-                )
-            }
-            HStack {
-                Text(closetItem.name)
-                    .bold()
-                    .fontDesign(.monospaced)
-                    .foregroundColor(Color(red: 0.53, green: 0.55, blue: 0.62))
-                    .font(.system(size: 16))
-            }
-            .offset(x:12, y:-6)
-        }
-        .onTapGesture {
+        Button(action: {
             onPress(closetItem)
+        }) {
+            ZStack (alignment: .bottomLeading) {
+                VStack {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 15)
+                            .foregroundColor(Color(red: 0.96, green: 0.96, blue: 0.99))
+                        
+                        if let imageData = closetItem.displayImage, let uiImage = UIImage(data: imageData) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 100, height: 100)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                        } else {
+                            Image(systemName: "photo")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 100, height: 100)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                        }
+                    }
+                    .frame(width:150, height:150)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color(red: 0.53, green: 0.55, blue: 0.62).opacity(0.25), lineWidth: 6)
+                    )
+                }
+                HStack {
+                    Text(closetItem.name)
+                        .bold()
+                        .fontDesign(.monospaced)
+                        .foregroundColor(Color(red: 0.53, green: 0.55, blue: 0.62))
+                        .font(.system(size: 16))
+                }
+                .offset(x:12, y:-6)
+            }
         }
     }
 }
