@@ -50,7 +50,7 @@ class ClothesViewModel {
         var filteredAccessories = userClothes.filter({$0.type == .accessories && $0.size == size && $0.weather == weather})
     
         // If there are not enough clothes to create an outfit it will return nil
-        guard !filteredTops.isEmpty, !filteredBottoms.isEmpty, !filteredShoes.isEmpty, !filteredAccessories.isEmpty else {
+        guard !filteredTops.isEmpty, !filteredBottoms.isEmpty, !filteredShoes.isEmpty else {
             return nil
         }
         
