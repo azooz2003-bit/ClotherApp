@@ -65,12 +65,24 @@ final class ClothesVMTests: XCTestCase {
         createClothing()
         
         clothesVM.search(input: "Trouse")
-        XCTAssertEqual(clothesVM.clothesOnDisplay.first!, clothesVM.userClothes[3])
+        XCTAssertEqual(clothesVM.clothesOnDisplay[0], clothesVM.userClothes[3])
         
         clothesVM.search(input: "Adidas F")
-        XCTAssertEqual(clothesVM.clothesOnDisplay.first!, clothesVM.userClothes[1])
+        XCTAssertEqual(clothesVM.clothesOnDisplay[0], clothesVM.userClothes[1])
     }
     
+    func testFilter() {
+        createClothing()
+        
+        clothesVM.filterClothes(by: .init(type: .top, size: nil, color: .black, weather: nil, fabric: .cotton))
+        XCTAssertEqual(clothesVM.clothesOnDisplay[0], clothesVM.userClothes[0])
+
+        clothesVM.filterClothes(by: .init(type: .bottom, size: nil, color: nil, weather: nil, fabric: nil))
+        
+        XCTAssertEqual(clothesVM.clothesOnDisplay.count, 2)
+        XCTAssertEqual(clothesVM.clothesOnDisplay[0], clothesVM.userClothes[1])
+        XCTAssertEqual(clothesVM.clothesOnDisplay[1], clothesVM.userClothes[3])
+    }
     
 
 }
