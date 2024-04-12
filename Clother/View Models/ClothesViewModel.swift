@@ -28,13 +28,13 @@ class ClothesViewModel {
     // TODO: Creates an outfit item and stores it in our application.
     func createOutfit(name: String, top: ClothingItem, bottom: ClothingItem, shoes: ClothingItem, other: [ClothingItem]) {
         let outfit = OutfitItem(name: name, top: top, bottom: bottom, shoes: shoes, other: other)
-        userOutfits.append(outfit)
+        saveOutfit(item: outfit)
     }
     
     // TODO: Creates a clothing item and stores it in our application.
     func createClothing(name: String, image: Data, type: Clothing.Kind, size: Clothing.Size, color: Clothing.Color, weather: Clothing.Weather, fabric: Clothing.Fabric) {
         let clothing = ClothingItem(name: name, type: type, size: size, color: color, weather: weather, fabric: fabric, displayImage: image)
-        userClothes.append(clothing)
+        saveClothing(item: clothing)
     }
     
     /* TODO: Randomly creates an outfit out of the provided constraints and returns it. Do not store it anywhere.
@@ -43,52 +43,63 @@ class ClothesViewModel {
      NOTE: leave the name to be empty.
      */
     func generateRandomOutfit(size: Clothing.Size?, color: Clothing.Color?, weather: Clothing.Weather?, fabric: Clothing.Fabric?)
-    -> (ClothingItem, ClothingItem, ClothingItem, [ClothingItem])? {
-        var filteredTops: [ClothingItem] = []
-        var filteredBottoms: [ClothingItem] = []
-        var filteredShoes: [ClothingItem] = []
-        var filteredAccessories: [ClothingItem] = []
-        
-        for item in userClothes {
-            if let size = size, item.size != size {
-                continue
-            }
-            if let color = color, item.color != color {
-                continue
-            }
-            if let weather = weather, item.weather != weather {
-                continue
-            }
-            if let fabric = fabric, item.fabric != fabric {
-                continue
-            }
-            
-            switch item.type {
-            case .top:
-                filteredTops.append(item)
-            case .bottom:
-                filteredBottoms.append(item)
-            case .shoes:
-                filteredShoes.append(item)
-            case .accessories:
-                filteredAccessories.append(item)
-            default:
-                continue
-            }
-        }
+    -> (ClothingItem?, ClothingItem?, ClothingItem?, [ClothingItem])? {
+        var filteredTops = userClothes.filter({$0.type == .top && $0.size == size && $0.weather == weather})
+        var filteredBottoms = userClothes.filter({$0.type == .bottom && $0.size == size && $0.weather == weather})
+        var filteredShoes = userClothes.filter({$0.type == .shoes && $0.size == size && $0.weather == weather})
+        var filteredAccessories = userClothes.filter({$0.type == .accessories && $0.size == size && $0.weather == weather})
+    
+        // If there are not enough clothes to create an outfit it will return nil
         guard !filteredTops.isEmpty, !filteredBottoms.isEmpty, !filteredShoes.isEmpty, !filteredAccessories.isEmpty else {
             return nil
         }
-        let randomTop = filteredTops.randomElement()!
-        let randomBottom = filteredBottoms.randomElement()!
-        let randomShoe = filteredShoes.randomElement()!
         
+        var colorApplied = false
+        var fabricApplied = false
+        
+        let randomTop: ClothingItem?
+        let randomBottom: ClothingItem?
+        let randomShoe: ClothingItem?
         var randomAccessories: [ClothingItem] = []
+        
+        if let top = filteredTops.randomElement() {
+            randomTop = top
+            if let color = color, top.color == color {
+                colorApplied = true
+            }
+            if let fabric = fabric, top.fabric == fabric {
+                fabricApplied = true
+            }
+        } else {
+            randomTop = nil
+        }
+        
+        if !colorApplied {
+            var tempFilteredBottoms: [ClothingItem] = []
+            if !fabricApplied {
+                tempFilteredBottoms = filteredBottoms.filter({ $0.color == color && $0.fabric == fabric })
+            } else {
+                tempFilteredBottoms = filteredBottoms.filter({ $0.color == color })
+            }
+            filteredBottoms = tempFilteredBottoms
+        }
+        
+        if let bottom = filteredBottoms.randomElement() {
+            randomBottom = bottom
+        } else {
+            randomBottom = nil
+        }
+        
+        if let shoe = filteredShoes.randomElement() {
+            randomShoe = shoe
+        } else {
+            randomShoe = nil
+        }
+        
         for _ in 0..<min(3, filteredAccessories.count) {
             let randomAccessory = filteredAccessories.randomElement()!
             randomAccessories.append(randomAccessory)
         }
-        
         return (randomTop, randomBottom, randomShoe, randomAccessories)
     }
     
@@ -98,7 +109,11 @@ class ClothesViewModel {
         userOutfits.append(item)
         outfitsOnDisplay = userOutfits
     }
-    
+    // TODO: Saves the outfit to the necessary collections.
+    func saveClothing(item: ClothingItem) {
+        userClothes.append(item)
+        clothesOnDisplay = userClothes
+    }
     // TODO: Manipulate the closet items on display such that only items with the provided input in their name are visible.
     func search(input: String) {
         clothesOnDisplay = userClothes.filter {$0.name.lowercased().contains(input.lowercased())}
@@ -125,14 +140,24 @@ class ClothesViewModel {
      If a given parameter is nil, it means that no filter was applied for it.
      */
     func filterOutfits(topFilter: Filter, bottomFilter: Filter, shoesFilter: Filter) {
-        outfitsOnDisplay = userOutfits.filter { outfitItem in
-            let topMatch = topFilter.type == nil || outfitItem.top.type == topFilter.type
-            let bottomMatch = bottomFilter.type == nil || outfitItem.bottom.type == bottomFilter.type
-            let shoesMatch = shoesFilter.type == nil || outfitItem.shoes.type == shoesFilter.type
-            
+        outfitsOnDisplay = userOutfits.filter { outfit in
+            let topMatch = topFilter.type == nil || outfit.top.type == topFilter.type ||
+                                                    outfit.top.size == topFilter.size ||
+                                                    outfit.top.color == topFilter.color ||
+                                                    outfit.top.weather == topFilter.weather ||
+                                                    outfit.top.fabric == topFilter.fabric
+            let bottomMatch = bottomFilter.type == nil || outfit.bottom.type == bottomFilter.type ||
+                                                          outfit.bottom.size == bottomFilter.size ||
+                                                          outfit.bottom.color == bottomFilter.color ||
+                                                          outfit.bottom.weather == bottomFilter.weather ||
+                                                          outfit.bottom.fabric == bottomFilter.fabric
+            let shoesMatch = shoesFilter.type == nil || outfit.shoes.type == shoesFilter.type ||
+                                                        outfit.shoes.size == shoesFilter.size ||
+                                                        outfit.shoes.color == shoesFilter.color ||
+                                                        outfit.shoes.weather == shoesFilter.weather ||
+                                                        outfit.shoes.fabric == shoesFilter.fabric
             return topMatch && bottomMatch && shoesMatch
         }
-        
     }
     
     struct Filter {
