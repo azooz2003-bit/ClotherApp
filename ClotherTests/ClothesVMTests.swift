@@ -11,6 +11,7 @@ import XCTest
 final class ClothesVMTests: XCTestCase {
     
     var clothesVM: ClothesViewModel!
+    let imageBuffer = Data()
 
     override func setUp() {
         super.setUp()
@@ -29,13 +30,16 @@ final class ClothesVMTests: XCTestCase {
         }
     }
     
-    func testCreateClothing() {
-        let imageBuffer = Data()
-        
+    func createClothing() {
         clothesVM.createClothing(name: "Nike", image: imageBuffer, type: .top, size: .medium, color: .black, weather: .warm, fabric: .cotton)
         clothesVM.createClothing(name: "Adidas Fav", image: imageBuffer, type: .bottom, size: .small, color: .green, weather: .cold, fabric: .cotton)
         clothesVM.createClothing(name: "Fav Shoes", image: imageBuffer, type: .shoes, size: .small, color: .white, weather: .warm, fabric: .other)
         clothesVM.createClothing(name: "Fancy Trousers", image: imageBuffer, type: .bottom, size: .medium, color: .blue, weather: .freezing, fabric: .leather)
+    }
+    
+    func testCreateClothing() {
+        
+        createClothing()
         
         XCTAssert(clothesVM.clothesOnDisplay.count == 4)
         XCTAssert(clothesVM.userClothes.count == 4)
@@ -46,6 +50,7 @@ final class ClothesVMTests: XCTestCase {
     }
     
     func testRandomOutfit() {
+        createClothing()
         let random = clothesVM.generateRandomOutfit(size: nil, color: .blue, weather: nil, fabric: .cotton)
         
         XCTAssertNotNil(random)
@@ -54,6 +59,16 @@ final class ClothesVMTests: XCTestCase {
         XCTAssertNotNil(random?.2)
         XCTAssertNotNil(random?.3)
 
+    }
+    
+    func testSearch() {
+        createClothing()
+        
+        clothesVM.search(input: "Trouse")
+        XCTAssertEqual(clothesVM.clothesOnDisplay.first!, clothesVM.userClothes[3])
+        
+        clothesVM.search(input: "Adidas F")
+        XCTAssertEqual(clothesVM.clothesOnDisplay.first!, clothesVM.userClothes[1])
     }
     
     
