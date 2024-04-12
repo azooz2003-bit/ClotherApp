@@ -37,6 +37,19 @@ final class ClothesVMTests: XCTestCase {
         clothesVM.createClothing(name: "Fancy Trousers", image: imageBuffer, type: .bottom, size: .medium, color: .blue, weather: .freezing, fabric: .leather)
     }
     
+    func createOutfits() {
+        createClothing()
+        
+        guard let random = clothesVM.generateRandomOutfit(size: nil, color: .blue, weather: nil, fabric: .cotton),
+        let top=random.0, let bottom=random.1, let shoes=random.2 else { return }
+        clothesVM.createOutfit(name: "RandomOutfit1", top: top, bottom: bottom, shoes: shoes, other: random.3)
+                
+        guard let random = clothesVM.generateRandomOutfit(size: nil, color: nil, weather: nil, fabric: nil),
+        let top=random.0, let bottom=random.1, let shoes=random.2 else { return }
+        clothesVM.createOutfit(name: "RandomOutfit2", top: top, bottom: bottom, shoes: shoes, other: random.3)
+
+    }
+    
     func testCreateClothing() {
         
         createClothing()
@@ -58,7 +71,7 @@ final class ClothesVMTests: XCTestCase {
         XCTAssertNotNil(random?.1)
         XCTAssertNotNil(random?.2)
         XCTAssertNotNil(random?.3)
-
+        
     }
     
     func testSearch() {
@@ -82,6 +95,15 @@ final class ClothesVMTests: XCTestCase {
         XCTAssertEqual(clothesVM.clothesOnDisplay.count, 2)
         XCTAssertEqual(clothesVM.clothesOnDisplay[0], clothesVM.userClothes[1])
         XCTAssertEqual(clothesVM.clothesOnDisplay[1], clothesVM.userClothes[3])
+    }
+    
+    func testOutfitFilter() {
+        createOutfits()
+        
+        clothesVM.filterOutfits(topFilter: .init(type: .top, size: nil, color: nil, weather: nil, fabric: nil)
+                                , bottomFilter: .init(type: .bottom, size: nil, color: nil, weather: nil, fabric: .leather),
+                                shoesFilter: .init(type: .shoes, size: nil, color: nil, weather: nil, fabric: nil))
+        XCTAssertNotEqual(clothesVM.userOutfits.count, 0)
     }
     
 
