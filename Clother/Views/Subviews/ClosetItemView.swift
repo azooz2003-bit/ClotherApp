@@ -22,9 +22,11 @@ struct ClotherStyle {
 }
 
 struct ClosetItemView<T>: View where T : ClosetItem {
+ 
     
     // The outfit whose information we want to display.
     let closetItem: T
+    
     // A custom closure or functionality to be executed upon clicking on this item view. Takes in the closet item being displayed.
     let onPress: (T) -> Void
     
@@ -58,6 +60,7 @@ struct ClosetItemView<T>: View where T : ClosetItem {
                         .padding(10)
                     
                     
+
                     Text(closetItem.name)
                         .bold()
                         .fontDesign(.monospaced)
@@ -71,8 +74,6 @@ struct ClosetItemView<T>: View where T : ClosetItem {
             }                            
             .frame(minWidth: cell.minWidth, maxWidth: cell.maxWidth, minHeight: cell.minHeight, maxHeight: cell.maxHeight)
             // ClotherStyle.GridCell is the global struct which contains information for standardized stylings.
-
-                
         }
     }
 }
