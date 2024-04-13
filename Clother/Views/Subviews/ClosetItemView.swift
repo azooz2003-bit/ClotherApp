@@ -30,17 +30,17 @@ struct ClosetItemView<T>: View where T : ClosetItem {
                             Image(uiImage: uiImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: 100, height: 100)
+                                .frame(width: 125, height: 125)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                         } else {
                             Image(systemName: "photo")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: 100, height: 100)
+                                .frame(width: 125, height: 125)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                         }
                     }
-                    .frame(width:150, height:150)
+                    .frame(width:175, height:175)
                     .overlay(
                         RoundedRectangle(cornerRadius: 15)
                             .stroke(Color(red: 0.53, green: 0.55, blue: 0.62).opacity(0.25), lineWidth: 6)
@@ -53,7 +53,7 @@ struct ClosetItemView<T>: View where T : ClosetItem {
                         .foregroundColor(Color(red: 0.53, green: 0.55, blue: 0.62))
                         .font(.system(size: 16))
                 }
-                .offset(x:12, y:-6)
+                .offset(x:14, y:-8)
             }
         }
     }
