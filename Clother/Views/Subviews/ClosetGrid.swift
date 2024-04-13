@@ -14,10 +14,16 @@ struct ClosetGrid<T>: View where T : ClosetItem  {
     // The closet items to be displayed in this grid.
     let closetItems: [T]
     
+    // This is the global struct which contains information for standardized stylings.
+    let cell = ClotherStyle.GridCell.self
+    
     var body: some View {
             ScrollView {
-                LazyVGrid(columns: [.init(.adaptive(minimum: 140, maximum: .infinity), spacing: -10)], spacing: 18) {
-                    ForEach(closetItems.indices) { idx in
+                LazyVGrid(columns: [ // Defining two columns without special attributes.
+                    .init(.fixed(cell.width), spacing: cell.horizontalSpacing), // Makes sure grid item takes up only space of closet item.
+                    .init(.fixed(cell.width), spacing: cell.horizontalSpacing),
+                ], spacing: 20) {
+                    ForEach(closetItems.indices, id: \.self) { idx in
                         ClosetItemView(closetItem: closetItems[idx], onPress: onItemPress)
                     }
                 }
@@ -30,4 +36,5 @@ struct ClosetGrid<T>: View where T : ClosetItem  {
         _ in
         
     }, closetItems: [.sample, .sample, .sample, .sample, .sample,.sample, .sample, .sample, .sample, .sample])
+    
 }
