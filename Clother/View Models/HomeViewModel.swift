@@ -12,17 +12,17 @@ import Combine
 class HomeViewModel: ObservableObject {
     
     // Indicates whether clothes or outfits are being displayed on the home screen.
-    var activeHomeScreen: HomeScreen
+    @Published var activeHomeScreen: HomeScreen
     
     // Is nil if no particular clothing / outfit is being viewed. Has a value if a user is looking at a particular item.
-    var clothingOnDisplay: ClothingItem?
-    var outfitOnDisplay: OutfitItem?
+    @Published var clothingOnDisplay: ClothingItem?
+    @Published var outfitOnDisplay: OutfitItem?
     
     /* 
      Represents a list of consecutively visited screens in our app. Order matters as the end of the path represents the screen currently viewed. An empty path implies that the user is at the home screen - the root view.
      The elements appended to this path will be of type 'Screen', an enum.
     */
-    var navPath: NavigationPath
+    @Published var navPath: NavigationPath
     
     init() {
         self.activeHomeScreen = .clothes
