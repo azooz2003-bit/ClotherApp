@@ -9,9 +9,15 @@ import SwiftUI
 
 struct ClotherStyle {
     struct GridCell {
-        static var height: CGFloat = 175
-        static var width: CGFloat = 175
-        static var horizontalSpacing: CGFloat = 15
+        static let maxHeight: CGFloat = 175
+        static let maxWidth: CGFloat = 175
+        static let minHeight: CGFloat = 100
+        static let minWidth: CGFloat = 100
+        static let horizontalSpacing: CGFloat = 15
+    }
+    
+    struct Grid {
+        static let sideSpacing: CGFloat = 18
     }
 }
 
@@ -27,6 +33,8 @@ struct ClosetItemView<T>: View where T : ClosetItem {
             return Image(uiImage: uiImage)
         } else  { return Image(systemName: "photo") }
     }
+    
+    let cell = ClotherStyle.GridCell.self
     
     var body: some View {
         Button(action: {
@@ -61,7 +69,7 @@ struct ClosetItemView<T>: View where T : ClosetItem {
                 }
                 
             }                            
-            .frame(width: ClotherStyle.GridCell.width, height: ClotherStyle.GridCell.height)
+            .frame(minWidth: cell.minWidth, maxWidth: cell.maxWidth, minHeight: cell.minHeight, maxHeight: cell.maxHeight)
             // ClotherStyle.GridCell is the global struct which contains information for standardized stylings.
 
                 
