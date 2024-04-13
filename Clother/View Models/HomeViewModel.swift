@@ -31,6 +31,10 @@ class HomeViewModel: ObservableObject {
         navPath = NavigationPath()
     }
     
+    func toggleHomeScreen() {
+        activeHomeScreen = activeHomeScreen ==  .clothes ? .outfits : .clothes
+    }
+    
     // TODO: Return to the screen visited prior to the current one. Do so by popping the end of the navigation path. Handle edge cases, if any.
     func navigateBackwards() {
         if !navPath.isEmpty {
@@ -45,9 +49,7 @@ class HomeViewModel: ObservableObject {
     
     // TODO: Returns to the home screen. HINT: Remember that the home screen is presented only when the navigation path is empty
     func returnToHome() {
-        while !navPath.isEmpty {
-            navPath.removeLast()
-        }
+        navPath.removeLast(navPath.count)
     }
     
 
