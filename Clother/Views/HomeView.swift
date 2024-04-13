@@ -24,7 +24,7 @@ struct HomeView: View {
     var body: some View {
         VStack {
             Picker(selection: $selectedServiceIndex, label: Text("Hello")) {
-                ForEach(0..<serviceOptions.count) { index in
+                ForEach(0..<serviceOptions.count, id: \.self) { index in
                     Text(serviceOptions[index])
                         .tag(index)
                 }
