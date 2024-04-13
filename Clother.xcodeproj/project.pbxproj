@@ -35,6 +35,7 @@
 		A3CB23CF2BC0B638005CBCF4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CB23CE2BC0B638005CBCF4 /* ImagePicker.swift */; };
 		A3CB23D12BC0BB41005CBCF4 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CB23D02BC0BB41005CBCF4 /* ImagePickerView.swift */; };
 		A3CB23D32BC0BD37005CBCF4 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CB23D22BC0BD37005CBCF4 /* CameraView.swift */; };
+		A3CE8FEF2BCA4070005D78D6 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CE8FEE2BCA4070005D78D6 /* Errors.swift */; };
 		A3D6DDFF2BC906140030B680 /* ClothesVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D6DDFE2BC906140030B680 /* ClothesVMTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		A3CB23CE2BC0B638005CBCF4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		A3CB23D02BC0BB41005CBCF4 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		A3CB23D22BC0BD37005CBCF4 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		A3CE8FEE2BCA4070005D78D6 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		A3D6DDFC2BC906140030B680 /* ClotherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClotherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D6DDFE2BC906140030B680 /* ClothesVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothesVMTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				A3CB23932BBF5EEF005CBCF4 /* ClotherApp.swift */,
+				A3CE8FED2BCA405C005D78D6 /* Utilities */,
 				A3CB23A32BBF5F29005CBCF4 /* View Models */,
 				A3CB23A22BBF5F23005CBCF4 /* Views */,
 				A3CB23A12BBF5F11005CBCF4 /* Models */,
@@ -191,6 +194,14 @@
 				A3CB23D22BC0BD37005CBCF4 /* CameraView.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		A3CE8FED2BCA405C005D78D6 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				A3CE8FEE2BCA4070005D78D6 /* Errors.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		A3D6DDFD2BC906140030B680 /* ClotherTests */ = {
@@ -308,6 +319,7 @@
 				A3CB23AF2BBF68B1005CBCF4 /* HomeView.swift in Sources */,
 				A3CB23CF2BC0B638005CBCF4 /* ImagePicker.swift in Sources */,
 				A3A2BCAE2BC268A900E1D188 /* SquareCardView.swift in Sources */,
+				A3CE8FEF2BCA4070005D78D6 /* Errors.swift in Sources */,
 				A3CB23CC2BBFAE75005CBCF4 /* FormDropdown.swift in Sources */,
 				A3CB23BD2BBF6957005CBCF4 /* ClothingDetailView.swift in Sources */,
 				A3CB23C82BBF9AC3005CBCF4 /* SearchBar.swift in Sources */,
