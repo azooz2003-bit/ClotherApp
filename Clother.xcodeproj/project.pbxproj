@@ -35,7 +35,19 @@
 		A3CB23CF2BC0B638005CBCF4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CB23CE2BC0B638005CBCF4 /* ImagePicker.swift */; };
 		A3CB23D12BC0BB41005CBCF4 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CB23D02BC0BB41005CBCF4 /* ImagePickerView.swift */; };
 		A3CB23D32BC0BD37005CBCF4 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CB23D22BC0BD37005CBCF4 /* CameraView.swift */; };
+		A3CE8FEF2BCA4070005D78D6 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CE8FEE2BCA4070005D78D6 /* Errors.swift */; };
+		A3D6DDFF2BC906140030B680 /* ClothesVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D6DDFE2BC906140030B680 /* ClothesVMTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A3D6DE002BC906140030B680 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A3CB23882BBF5EEF005CBCF4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A3CB238F2BBF5EEF005CBCF4;
+			remoteInfo = Clother;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		A3A2BCAB2BC2681B00E1D188 /* NameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextField.swift; sourceTree = "<group>"; };
@@ -67,10 +79,20 @@
 		A3CB23CE2BC0B638005CBCF4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		A3CB23D02BC0BB41005CBCF4 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		A3CB23D22BC0BD37005CBCF4 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		A3CE8FEE2BCA4070005D78D6 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		A3D6DDFC2BC906140030B680 /* ClotherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClotherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3D6DDFE2BC906140030B680 /* ClothesVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothesVMTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A3CB238D2BBF5EEF005CBCF4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A3D6DDF92BC906140030B680 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -84,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				A3CB23922BBF5EEF005CBCF4 /* Clother */,
+				A3D6DDFD2BC906140030B680 /* ClotherTests */,
 				A3CB23912BBF5EEF005CBCF4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -92,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				A3CB23902BBF5EEF005CBCF4 /* Clother.app */,
+				A3D6DDFC2BC906140030B680 /* ClotherTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -100,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				A3CB23932BBF5EEF005CBCF4 /* ClotherApp.swift */,
+				A3CE8FED2BCA405C005D78D6 /* Utilities */,
 				A3CB23A32BBF5F29005CBCF4 /* View Models */,
 				A3CB23A22BBF5F23005CBCF4 /* Views */,
 				A3CB23A12BBF5F11005CBCF4 /* Models */,
@@ -171,6 +196,22 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
+		A3CE8FED2BCA405C005D78D6 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				A3CE8FEE2BCA4070005D78D6 /* Errors.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		A3D6DDFD2BC906140030B680 /* ClotherTests */ = {
+			isa = PBXGroup;
+			children = (
+				A3D6DDFE2BC906140030B680 /* ClothesVMTests.swift */,
+			);
+			path = ClotherTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -191,6 +232,24 @@
 			productReference = A3CB23902BBF5EEF005CBCF4 /* Clother.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A3D6DDFB2BC906140030B680 /* ClotherTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A3D6DE042BC906140030B680 /* Build configuration list for PBXNativeTarget "ClotherTests" */;
+			buildPhases = (
+				A3D6DDF82BC906140030B680 /* Sources */,
+				A3D6DDF92BC906140030B680 /* Frameworks */,
+				A3D6DDFA2BC906140030B680 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A3D6DE012BC906140030B680 /* PBXTargetDependency */,
+			);
+			name = ClotherTests;
+			productName = ClotherTests;
+			productReference = A3D6DDFC2BC906140030B680 /* ClotherTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -203,6 +262,10 @@
 				TargetAttributes = {
 					A3CB238F2BBF5EEF005CBCF4 = {
 						CreatedOnToolsVersion = 15.3;
+					};
+					A3D6DDFB2BC906140030B680 = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = A3CB238F2BBF5EEF005CBCF4;
 					};
 				};
 			};
@@ -220,6 +283,7 @@
 			projectRoot = "";
 			targets = (
 				A3CB238F2BBF5EEF005CBCF4 /* Clother */,
+				A3D6DDFB2BC906140030B680 /* ClotherTests */,
 			);
 		};
 /* End PBXProject section */
@@ -231,6 +295,13 @@
 			files = (
 				A3CB239B2BBF5EF1005CBCF4 /* Preview Assets.xcassets in Resources */,
 				A3CB23982BBF5EF1005CBCF4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A3D6DDFA2BC906140030B680 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +319,7 @@
 				A3CB23AF2BBF68B1005CBCF4 /* HomeView.swift in Sources */,
 				A3CB23CF2BC0B638005CBCF4 /* ImagePicker.swift in Sources */,
 				A3A2BCAE2BC268A900E1D188 /* SquareCardView.swift in Sources */,
+				A3CE8FEF2BCA4070005D78D6 /* Errors.swift in Sources */,
 				A3CB23CC2BBFAE75005CBCF4 /* FormDropdown.swift in Sources */,
 				A3CB23BD2BBF6957005CBCF4 /* ClothingDetailView.swift in Sources */,
 				A3CB23C82BBF9AC3005CBCF4 /* SearchBar.swift in Sources */,
@@ -270,7 +342,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A3D6DDF82BC906140030B680 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A3D6DDFF2BC906140030B680 /* ClothesVMTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A3D6DE012BC906140030B680 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A3CB238F2BBF5EEF005CBCF4 /* Clother */;
+			targetProxy = A3D6DE002BC906140030B680 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		A3CB239C2BBF5EF1005CBCF4 /* Debug */ = {
@@ -450,6 +538,40 @@
 			};
 			name = Release;
 		};
+		A3D6DE022BC906140030B680 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.aalbahar.ClotherTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Clother.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Clother";
+			};
+			name = Debug;
+		};
+		A3D6DE032BC906140030B680 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.aalbahar.ClotherTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Clother.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Clother";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -467,6 +589,15 @@
 			buildConfigurations = (
 				A3CB239F2BBF5EF1005CBCF4 /* Debug */,
 				A3CB23A02BBF5EF1005CBCF4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A3D6DE042BC906140030B680 /* Build configuration list for PBXNativeTarget "ClotherTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A3D6DE022BC906140030B680 /* Debug */,
+				A3D6DE032BC906140030B680 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
