@@ -6,10 +6,10 @@
 //
 
 import SwiftUI // We import this here because we want to use the special NavigationPath it offers.
-
+import Combine
 
 //TODO: make the necessary additions so that the view model properties can trigger view updates. HINT: think about what protocol and property wrapper to use.
-class HomeViewModel {
+class HomeViewModel: ObservableObject {
     
     // Indicates whether clothes or outfits are being displayed on the home screen.
     var activeHomeScreen: HomeScreen
@@ -33,17 +33,21 @@ class HomeViewModel {
     
     // TODO: Return to the screen visited prior to the current one. Do so by popping the end of the navigation path. Handle edge cases, if any.
     func navigateBackwards() {
-        
+        if !navPath.isEmpty {
+            navPath.removeLast()
+        }
     }
     
     // TODO: Jumps to the specified screen, appending the enum value to the end of our navigation path. Handle edge cases, if any.
     func navigateTo(screen: Screen) {
-        
+        navPath.append(screen)
     }
     
     // TODO: Returns to the home screen. HINT: Remember that the home screen is presented only when the navigation path is empty
     func returnToHome() {
-    
+        while !navPath.isEmpty {
+            navPath.removeLast()
+        }
     }
     
 
