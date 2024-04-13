@@ -38,12 +38,13 @@ struct HomeView: View {
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding(.bottom, 5)
+            
             CustomSearchBar(
                 searchText: .constant(""),
                 onSearch: { _ in print("Search") },
                 onSettings: { print("Settings") }
             )
-            .padding(.bottom, 5)
+            
             if (displayItems) {
                 ClosetGrid<ClothingItem>(onItemPress: { _ in }, closetItems: [.sample])
                 RoundedButton(onPress: {}, icon: "plus")
@@ -59,7 +60,6 @@ struct HomeView: View {
                 .padding(.bottom, 15)
             }
         }
-        .edgesIgnoringSafeArea(.bottom)
     }
 }
 
