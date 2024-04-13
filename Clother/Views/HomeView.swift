@@ -16,46 +16,54 @@ struct HomeView: View {
      - Navigation should also work in this view. This screen can jump to multiple views as shown in Figma. Utilize the view model functions and variables for navigation. Since this is the root view, don't forget to wrap it with a navigation stack.
      - Your view models should be injected into the navigation and subview hierarchies as an 'environment object'.
      */
-    @State var displayCameraOptions: Bool = false
+    @State var displayItems: Bool = true
+    
+    @State private var selectedServiceIndex = 0
+    private let serviceOptions = ["Clothes", "Outfits"]
     
     var body: some View {
-        HStack {
-            if (displayCameraOptions) {
-                VStack {
-                    Spacer()
-                    RoundedButton(onPress: {
-                        print("Button Pressed")
-                    }, icon: "square.and.arrow.up")
-                    .padding()
+        VStack {
+            Picker(selection: $selectedServiceIndex, label: Text("Hello")) {
+                ForEach(0..<serviceOptions.count) { index in
+                    Text(serviceOptions[index])
+                        .tag(index)
                 }
-                .background(Color.white)
             }
-            VStack {
-                Spacer()
-                RoundedButton(onPress: {
-                    withAnimation(.smooth) {
-                        displayCameraOptions.toggle()
-                    }
-                }, icon: displayCameraOptions ? "x.circle.fill" : "camera")
-                .padding()
-            }
-            .background(Color.white)
-            if (displayCameraOptions) {
-                VStack {
-                    Spacer()
-                    RoundedButton(onPress: {
-                        print("Button Pressed")
-                    }, icon: "camera")
-                    .padding()
+            .onChange(of: selectedServiceIndex) {oldValue, newValue in
+                if serviceOptions[selectedServiceIndex] == "Clothes" {
+                    displayItems = true
+                } else if serviceOptions[selectedServiceIndex] == "Outfits" {
+                    displayItems = false
                 }
-                .background(Color.white)
             }
-            
+            .pickerStyle(SegmentedPickerStyle())
+            .padding(.bottom, 5)
+            CustomSearchBar(
+                searchText: .constant(""),
+                onSearch: { _ in print("Search") },
+                onSettings: { print("Settings") }
+            )
+            .padding(.bottom, 5)
+            if (displayItems) {
+                ClosetGrid<ClothingItem>(onItemPress: { _ in }, closetItems: [.sample])
+                RoundedButton(onPress: {}, icon: "plus")
+                .padding(.bottom, 15)
+            } else if (displayItems == false) {
+                ClosetGrid<ClothingItem>(onItemPress: { _ in }, closetItems: [.sample, .sample])
+                HStack {
+                    RoundedButton(onPress: {}, icon: "hanger")
+                        .padding(Edge.Set.horizontal, 25)
+                    RoundedButton(onPress: {}, icon: "arrow.up")
+                        .padding(Edge.Set.horizontal, 25)
+                }
+                .padding(.bottom, 15)
+            }
         }
+        .edgesIgnoringSafeArea(.bottom)
     }
-    
 }
 
-#Preview {
-    HomeView()
-}
+    #Preview {
+        HomeView()
+    }
+

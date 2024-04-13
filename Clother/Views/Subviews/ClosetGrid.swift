@@ -15,13 +15,21 @@ struct ClosetGrid<T>: View where T : ClosetItem  {
     let closetItems: [T]
     
     var body: some View {
-        Text("")
+            ScrollView {
+                LazyVGrid(columns: [.init(.adaptive(minimum: 140, maximum: .infinity), spacing: -10)], spacing: 18) {
+                    ForEach(closetItems.indices) { idx in
+                        ClosetItemView(closetItem: closetItems[idx], onPress: onItemPress)
+                    }
+                }
+                Spacer()
+                Spacer()
+            }
+        }
     }
-}
 
 #Preview {
     ClosetGrid<ClothingItem>(onItemPress: {
         _ in
         
-    }, closetItems: [.sample, .sample])
+    }, closetItems: [.sample, .sample, .sample, .sample, .sample, .sample, .sample, .sample, .sample, .sample])
 }
