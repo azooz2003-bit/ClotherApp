@@ -180,12 +180,13 @@ class ClothesViewModel: ObservableObject {
         }
     }
     
-    struct Filter {
-        var type: Clothing.Kind?
-        var size: Clothing.Size?
-        var color: Clothing.Color?
-        var weather: Clothing.Weather?
-        var fabric: Clothing.Fabric?
-    }
+}
+
+struct Filter {
+    var type: Clothing.Kind?
+    var size: Clothing.Size?
+    var color: Clothing.Color?
+    var weather: Clothing.Weather?
+    var fabric: Clothing.Fabric?
 }
 

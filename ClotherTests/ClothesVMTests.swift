@@ -91,6 +91,7 @@ final class ClothesVMTests: XCTestCase {
         
         clothesVM.filterOutfits(topFilter: .init(type: .top, size: nil, color: nil, weather: nil, fabric: nil)
                                 , bottomFilter: .init(type: .bottom, size: nil, color: nil, weather: nil, fabric: .leather))
+
         XCTAssertNotEqual(clothesVM.userOutfits.count, 0)
     }
 }
