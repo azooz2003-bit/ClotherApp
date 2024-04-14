@@ -11,19 +11,21 @@ struct NameTextField: View {
     
     // TODO: this variable is missing something that will allow us to share it's value with the superview.
     @State var nameInput: String = ""
-    
+    let customColor = ClotherStyle.CustomColor.self
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15)
-                .stroke(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 0.20), lineWidth:3)
+                .fill(customColor.skyBlue)
+                .stroke(customColor.lightGray, lineWidth: 3)
             
             TextField("Enter Name...", text: $nameInput)
-                .textContentType(.givenName)
+                .foregroundColor(.gray)
                 .fontDesign(.monospaced)
-                .padding(.leading, 20)
+                .padding(.leading, 16)
+                .font(.system(size: 16))
             
-        }.frame(width: 360, height: 40)
-            .background(Color(red: 0.957, green: 0.965, blue: 0.988, opacity: 1.0))
+        }.frame(width: 360, height: 50)
     }
 }
 
