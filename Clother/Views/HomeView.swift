@@ -18,6 +18,7 @@ struct HomeView: View {
      */
     @ObservedObject var viewModel = HomeViewModel()
     @ObservedObject var clothesModel = ClothesViewModel()
+    @State private var searchText: String = ""
     
     var body: some View {
         VStack {
@@ -46,30 +47,38 @@ struct HomeView: View {
                 }
             }
             CustomSearchBar(
-                searchText: .constant(""),
-                onSearch: { _ in print("Search") },
-                onSettings: { print("Settings") }
-            )
+                searchText: $searchText,
+                onSearch: {
+                    _ in clothesModel.search(input: searchText)
+                }, onSettings: {
+                    print("Settings")
+                })
             .padding(.top)
             if (viewModel.activeHomeScreen == .clothes) {
                 ClosetGrid<ClothingItem>(onItemPress: {
-                    _ in
+                    _ in viewModel.navigateTo(screen: .detailedClothing)
                     
                 }, closetItems: clothesModel.clothesOnDisplay)
             } else {
                 ClosetGrid<OutfitItem>(onItemPress: {
-                    _ in
+                    _ in viewModel.navigateTo(screen: .detailedOutfit)
                     
                 }, closetItems: clothesModel.outfitsOnDisplay)
             }
             if (viewModel.activeHomeScreen == .clothes) {
-                RoundedButton(onPress: {}, icon: "camera")
+                RoundedButton(onPress: {
+                    viewModel.navigateTo(screen: .uploadClothes)
+                }, icon: "camera")
                     .previewLayout(.sizeThatFits)
             } else {
                 HStack (spacing: 75){
-                    RoundedButton(onPress: {}, icon: "hanger")
+                    RoundedButton(onPress: {
+                        viewModel.navigateTo(screen: .outfitForm)
+                    }, icon: "hanger")
                         .previewLayout(.sizeThatFits)
-                    RoundedButton(onPress: {}, icon: "plus")
+                    RoundedButton(onPress: {
+                        viewModel.navigateTo(screen: .randomizedOutfitForm)
+                    }, icon: "plus")
                         .previewLayout(.sizeThatFits)
                 }
             }
