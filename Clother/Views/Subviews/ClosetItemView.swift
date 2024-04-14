@@ -19,6 +19,14 @@ struct ClotherStyle {
     struct Grid {
         static let sideSpacing: CGFloat = 18
     }
+    
+    struct CustomColor {
+        static let skyBlue = Color(red: 0.957, green: 0.965, blue: 0.988, opacity: 1.0)
+        static let lightGray = Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 0.20)
+        static let foggyBlue = Color(red: 0.956, green: 0.964, blue: 0.988)
+        static let gray = Color(red: 0.53, green: 0.55, blue: 0.62).opacity(0.25)
+        static let darkGray = Color(red: 0.53, green: 0.55, blue: 0.62)
+    }
 }
 
 struct ClosetItemView<T>: View where T : ClosetItem {
@@ -44,12 +52,11 @@ struct ClosetItemView<T>: View where T : ClosetItem {
         }) {
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
+                    .fill(ClotherStyle.CustomColor.foggyBlue)
                     .stroke(
-                        Color(red: 0.53, green: 0.55, blue: 0.62).opacity(0.25),
+                        ClotherStyle.CustomColor.gray,
                         lineWidth: 3
-                    )
-                    .foregroundColor(Color(red: 0.96, green: 0.96, blue: 0.99))
-                
+                    )                
                 
                 VStack {
                    
@@ -64,7 +71,7 @@ struct ClosetItemView<T>: View where T : ClosetItem {
                     Text(closetItem.name)
                         .bold()
                         .fontDesign(.monospaced)
-                        .foregroundColor(Color(red: 0.53, green: 0.55, blue: 0.62))
+                        .foregroundColor(ClotherStyle.CustomColor.darkGray)
                         .font(.system(size: 16))
                         .frame(maxWidth: .infinity, alignment: .bottomLeading)
                         .padding([.leading, .bottom], 9)

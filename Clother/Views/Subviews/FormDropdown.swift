@@ -10,7 +10,7 @@ import SwiftUI
 struct FormDropdown<T: Property>: View {
 
     let promptTitle: String
-    @State var selectedItem: T?
+    @Binding var selectedItem: T?
 
     var options: [T] {
         T.allCases as! [T]
@@ -25,7 +25,9 @@ struct FormDropdown<T: Property>: View {
             }) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 15)
-                        .stroke(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 0.20), lineWidth:3)
+                        .fill(ClotherStyle.CustomColor.skyBlue)
+                        .stroke(ClotherStyle.CustomColor.lightGray, lineWidth: 3)
+                        
                     HStack {
                         Text(selectedItem?.id ?? "Select \(promptTitle)")
                             .fontDesign(.monospaced)
@@ -40,7 +42,6 @@ struct FormDropdown<T: Property>: View {
                     }
                 }
                 .frame(width: 360, height: 40)
-                .background(Color(red: 0.957, green: 0.965, blue: 0.988, opacity: 1.0))
             }
             
             if showDropdown {
@@ -49,7 +50,6 @@ struct FormDropdown<T: Property>: View {
                         Button(action: {
                             print("Selected: \(option.id)")
                             self.selectedItem = option
-                            self.showDropdown = false
                         }) {
                             Text(option.id)
                                 .fontDesign(.monospaced)
@@ -81,5 +81,7 @@ struct FormDropdown<T: Property>: View {
 }
 
 #Preview {
-    FormDropdown<Clothing.Color>(promptTitle: "color")
+    @State var selected: Clothing.Color? = .black
+    
+    return FormDropdown<Clothing.Color>(promptTitle: "color", selectedItem: $selected)
 }
