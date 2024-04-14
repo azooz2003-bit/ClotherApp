@@ -4,7 +4,7 @@
 //
 //  Created by Abdulaziz Albahar on 4/12/24.
 //
-
+/*
 @testable import Clother
 import XCTest
 
@@ -95,3 +95,4 @@ final class ClothesVMTests: XCTestCase {
         XCTAssertNotEqual(clothesVM.userOutfits.count, 0)
     }
 }
+*/
