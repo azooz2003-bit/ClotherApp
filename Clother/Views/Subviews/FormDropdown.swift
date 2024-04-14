@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FormDropdown<T: Clothing.Property>: View {
+struct FormDropdown<T: Property>: View {
 
     let promptTitle: String
     @State var selectedItem: T?
