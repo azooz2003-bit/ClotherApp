@@ -17,6 +17,8 @@ struct FormDropdown<T: Property>: View {
     }
 
     @State var showDropdown: Bool = false
+    
+    let customColor = ClotherStyle.CustomColor.self
 
     var body: some View {
         VStack {
@@ -25,8 +27,8 @@ struct FormDropdown<T: Property>: View {
             }) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 15)
-                        .fill(ClotherStyle.CustomColor.skyBlue)
-                        .stroke(ClotherStyle.CustomColor.lightGray, lineWidth: 3)
+                        .fill(customColor.skyBlue)
+                        .stroke(customColor.lightGray, lineWidth: 3)
                         
                     HStack {
                         Text(selectedItem?.id ?? "Select \(promptTitle)")
@@ -41,42 +43,49 @@ struct FormDropdown<T: Property>: View {
                             .padding(.trailing, 20)
                     }
                 }
-                .frame(width: 360, height: 40)
+                .frame(height: 40)
             }
             
             if showDropdown {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 10) {
                     ForEach(options, id: \.id) { option in
                         Button(action: {
                             print("Selected: \(option.id)")
-                            self.selectedItem = option
+                            withAnimation {
+                                self.selectedItem = option
+                            }
                         }) {
                             Text(option.id)
                                 .fontDesign(.monospaced)
-                                .foregroundStyle(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 0.60))
+                                .foregroundStyle(
+                                    selectedItem == option ? 
+                                    Color(red: 0.22, green: 0.71, blue: 1)
+                                                        :
+                                    Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 0.60)
+                                )
                                 .padding(.leading, 20)
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .overlay{
+                                    if selectedItem == option {
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .fill(customColor.laserBlue)
+                                            .frame(width: 340, height: 35)
+                                    }
+                                }
                         }
-                        .padding(.vertical, 1)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(self.selectedItem == option ? Color(red: 0.22, green: 0.553, blue: 0.616, opacity: 0.60) : Color.clear, lineWidth: 2)
-                                .frame(maxWidth: 340, minHeight: 30)
-                        )
+                       
                     }
                 }
-                .padding(.vertical, 5)
+                .padding(.vertical, 15)
                 .background(
                     RoundedRectangle(cornerRadius: 15)
                         .fill(Color(red: 0.957, green: 0.965, blue: 0.988))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 0.20), lineWidth: 3)
-                        )
+                        .stroke(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 0.20), lineWidth: 3)
+                        
                 )
-                .frame(maxWidth: 360)
             }
         }
+        .frame(width: 360)
     }
 }
 

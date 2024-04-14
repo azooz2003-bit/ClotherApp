@@ -26,6 +26,7 @@ struct ClotherStyle {
         static let foggyBlue = Color(red: 0.956, green: 0.964, blue: 0.988)
         static let gray = Color(red: 0.53, green: 0.55, blue: 0.62).opacity(0.25)
         static let darkGray = Color(red: 0.53, green: 0.55, blue: 0.62)
+        static let laserBlue = Color(red: 0.22, green: 0.71, blue: 1).opacity(0.25)
     }
 }
 
