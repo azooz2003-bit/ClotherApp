@@ -31,10 +31,6 @@ class HomeViewModel: ObservableObject {
         navPath = NavigationPath()
     }
     
-    func toggleHomeScreen() {
-        activeHomeScreen = activeHomeScreen ==  .clothes ? .outfits : .clothes
-    }
-    
     // TODO: Return to the screen visited prior to the current one. Do so by popping the end of the navigation path. Handle edge cases, if any.
     func navigateBackwards() {
         if !navPath.isEmpty {
@@ -55,10 +51,16 @@ class HomeViewModel: ObservableObject {
 
 }
 
-enum HomeScreen {
+enum HomeScreen: Int, CaseIterable {
     case clothes, outfits
+    
+    var title: String {
+        switch self {
+        case .clothes: return "Clothes"
+        case .outfits: return "Outfits"
+        }
+    }
 }
-
 enum Screen: Codable {
     case home, uploadClothes, outfitForm, randomizedOutfitForm, clothingForm, confirmRandomizedOutfit, detailedOutfit, detailedClothing
 }
