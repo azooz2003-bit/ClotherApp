@@ -16,53 +16,67 @@ struct HomeView: View {
      - Navigation should also work in this view. This screen can jump to multiple views as shown in Figma. Utilize the view model functions and variables for navigation. Since this is the root view, don't forget to wrap it with a navigation stack.
      - Your view models should be injected into the navigation and subview hierarchies as an 'environment object'.
      */
-    @State var displayItems: Bool = true
-    
-    @State private var selectedServiceIndex = 0
-    private let serviceOptions = ["Clothes", "Outfits"]
+    @ObservedObject var viewModel = HomeViewModel()
+    @ObservedObject var clothesModel = ClothesViewModel()
     
     var body: some View {
         VStack {
-            Picker(selection: $selectedServiceIndex, label: Text("Hello")) {
-                ForEach(0..<serviceOptions.count, id: \.self) { index in
-                    Text(serviceOptions[index])
-                        .tag(index)
+            HStack {
+                ForEach(HomeScreen.allCases, id: \.self) { item in
+                    VStack {
+                        Text(item.title)
+                            .bold()
+                            .foregroundColor(item == viewModel.activeHomeScreen ?
+                                             Color(red: 0.53, green: 0.55, blue: 0.62) : Color(red: 0.53, green: 0.55, blue: 0.62).opacity(0.75))
+                            .fontDesign(.monospaced)
+                            .font(.system(size: 16))
+                        if viewModel.activeHomeScreen == item {
+                            Capsule()
+                                .fill(Color(red: 0.53, green: 0.55, blue: 0.62))
+                                .frame(height: 4)
+                        } else {
+                            Capsule()
+                                .fill(Color(red: 0.90, green: 0.91, blue: 0.93))
+                                .frame(height: 4)
+                        }
+                    }
+                    .onTapGesture {
+                        viewModel.activeHomeScreen = item
+                    }
                 }
             }
-            .onChange(of: selectedServiceIndex) {oldValue, newValue in
-                if serviceOptions[selectedServiceIndex] == "Clothes" {
-                    displayItems = true
-                } else if serviceOptions[selectedServiceIndex] == "Outfits" {
-                    displayItems = false
-                }
-            }
-            .pickerStyle(SegmentedPickerStyle())
-            .padding(.bottom, 5)
-            
             CustomSearchBar(
                 searchText: .constant(""),
                 onSearch: { _ in print("Search") },
                 onSettings: { print("Settings") }
             )
-            
-            if (displayItems) {
-                ClosetGrid<ClothingItem>(onItemPress: { _ in }, closetItems: [.sample])
-                RoundedButton(onPress: {}, icon: "plus")
-                .padding(.bottom, 15)
-            } else if (displayItems == false) {
-                ClosetGrid<ClothingItem>(onItemPress: { _ in }, closetItems: [.sample, .sample])
-                HStack {
-                    RoundedButton(onPress: {}, icon: "hanger")
-                        .padding(Edge.Set.horizontal, 25)
-                    RoundedButton(onPress: {}, icon: "arrow.up")
-                        .padding(Edge.Set.horizontal, 25)
-                }
-                .padding(.bottom, 15)
+            .padding(.top)
+            if (viewModel.activeHomeScreen == .clothes) {
+                ClosetGrid<ClothingItem>(onItemPress: {
+                    _ in
+                    
+                }, closetItems: clothesModel.clothesOnDisplay)
+            } else {
+                ClosetGrid<OutfitItem>(onItemPress: {
+                    _ in
+                    
+                }, closetItems: clothesModel.outfitsOnDisplay)
             }
+            if (viewModel.activeHomeScreen == .clothes) {
+                RoundedButton(onPress: {}, icon: "camera")
+                    .previewLayout(.sizeThatFits)
+            } else {
+                HStack (spacing: 75){
+                    RoundedButton(onPress: {}, icon: "hanger")
+                        .previewLayout(.sizeThatFits)
+                    RoundedButton(onPress: {}, icon: "plus")
+                        .previewLayout(.sizeThatFits)
+                }
+            }
+            
         }
     }
 }
-
     #Preview {
         HomeView()
     }
