@@ -17,13 +17,17 @@ struct FormDropdown<T: Property>: View {
     }
 
     @State var showDropdown: Bool = false
+    @State var chevronResource: String = "chevron.up"
     
     let customColor = ClotherStyle.CustomColor.self
 
     var body: some View {
         VStack {
             Button(action: {
-                self.showDropdown.toggle()
+                chevronResource = chevronResource == "chevron.up" ? "chevron.down" : "chevron.up"
+                withAnimation(.smooth){
+                    self.showDropdown.toggle()
+                }
             }) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 15)
@@ -38,7 +42,7 @@ struct FormDropdown<T: Property>: View {
                         
                         Spacer()
                         
-                        Image(systemName: showDropdown ? "chevron.up" : "chevron.down")
+                        Image(systemName: chevronResource)
                             .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 0.60))
                             .padding(.trailing, 20)
                     }
@@ -83,6 +87,7 @@ struct FormDropdown<T: Property>: View {
                         .stroke(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 0.20), lineWidth: 3)
                         
                 )
+                .transition(.move(edge: .bottom).combined(with: .opacity))
             }
         }
         .frame(width: 360)
