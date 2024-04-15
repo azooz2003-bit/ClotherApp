@@ -8,7 +8,7 @@
 import Foundation
 
 //TODO: make the necessary additions so that the view model properties can trigger view updates. HINT: think about what protocol and property wrapper to use.
-class ClothesViewModel {
+class ClothesViewModel: ObservableObject {
     
     // These represent the complete, unfiltered collection of closet items.
     var userOutfits: [OutfitItem]

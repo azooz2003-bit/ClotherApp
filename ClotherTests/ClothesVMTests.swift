@@ -89,8 +89,9 @@ final class ClothesVMTests: XCTestCase {
     func testOutfitFilter() {
         testOutfits()
         
-        clothesVM.filterOutfits(topFilter: Filter(type: .top, size: nil, color: nil, weather: nil, fabric: nil)
-                                , bottomFilter: Filter(type: .bottom, size: nil, color: nil, weather: nil, fabric: .leather))
+        clothesVM.filterOutfits(topFilter: .init(type: .top, size: nil, color: nil, weather: nil, fabric: nil)
+                                , bottomFilter: .init(type: .bottom, size: nil, color: nil, weather: nil, fabric: .leather))
+
         XCTAssertNotEqual(clothesVM.userOutfits.count, 0)
     }
 }

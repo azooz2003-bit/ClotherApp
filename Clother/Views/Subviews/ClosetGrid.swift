@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ClosetGrid<T>: View where T : ClosetItem  {
+struct ClosetGrid<T>: View where T : ClosetItem {
     
     // A custom closure or functionality to be executed upon clicking on a grid item. Takes in the selected closet item.
     let onItemPress: (T) -> Void
