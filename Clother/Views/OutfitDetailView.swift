@@ -15,13 +15,13 @@ struct OutfitDetailView: View {
      - Observe the UI components implemented under subviews folder. Do not reimplement a subview that has been built, use the subviews given to you as much as possible.
      - Don't forget to implement backwards navigation. Utilize the view model functions and variables for navigation.
      */
-    @ObservedObject var viewModel = HomeViewModel()
-    
+    @ObservedObject var homeVM: HomeViewModel
+    @ObservedObject var clothesVM: ClothesViewModel
     
     var body: some View {
         VStack {
             Button(action: {
-                viewModel.returnToHome()
+                homeVM.returnToHome()
             }) {
                 Image(systemName: "arrow.left")
                     .resizable()
@@ -31,7 +31,7 @@ struct OutfitDetailView: View {
             }
             .padding()
             .offset(x: -140, y: -50)
-            Text(viewModel.outfitOnDisplay?.name ?? "Name of Outfit")
+            Text(homeVM.outfitOnDisplay?.name ?? "Name of Outfit")
                 .font(.title2)
                 .bold()
                 .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616))
@@ -40,14 +40,14 @@ struct OutfitDetailView: View {
             
             HStack {
                 VStack (spacing: 15){
-                    ClosetItemView(closetItem: viewModel.outfitOnDisplay?.top ?? .sample, onPress: {
+                    ClosetItemView(closetItem: homeVM.outfitOnDisplay?.top ?? .sample, onPress: {
                         print($0)
                     })
-                    ClosetItemView(closetItem: viewModel.outfitOnDisplay?.bottom ?? .sample, onPress: {
-                        _ in viewModel.navigateTo(screen: .detailedClothing)
+                    ClosetItemView(closetItem: homeVM.outfitOnDisplay?.bottom ?? .sample, onPress: {
+                        _ in homeVM.navigateTo(screen: .detailedClothing)
                     })
-                    ClosetItemView(closetItem: viewModel.outfitOnDisplay?.shoes ?? .sample, onPress: {
-                        _ in viewModel.navigateTo(screen: .detailedClothing)
+                    ClosetItemView(closetItem: homeVM.outfitOnDisplay?.shoes ?? .sample, onPress: {
+                        _ in homeVM.navigateTo(screen: .detailedClothing)
                     })
                 }
                 VStack {
@@ -58,16 +58,16 @@ struct OutfitDetailView: View {
                         .font(.system(size: 16))
                         .padding(.bottom, 5)
                     VStack (spacing: 15){
-                        ClosetItemView(closetItem: viewModel.outfitOnDisplay?.accessories[0] ?? .sample, onPress: {
-                            _ in viewModel.navigateTo(screen: .detailedClothing)
+                        ClosetItemView(closetItem: homeVM.outfitOnDisplay?.accessories[0] ?? .sample, onPress: {
+                            _ in homeVM.navigateTo(screen: .detailedClothing)
                         })
                         .frame(width: 100, height: 100)
-                        ClosetItemView(closetItem: viewModel.outfitOnDisplay?.accessories[1] ?? .sample, onPress: {
-                            _ in viewModel.navigateTo(screen: .detailedClothing)
+                        ClosetItemView(closetItem: homeVM.outfitOnDisplay?.accessories[1] ?? .sample, onPress: {
+                            _ in homeVM.navigateTo(screen: .detailedClothing)
                         })
                         .frame(width: 100, height: 100)
-                        ClosetItemView(closetItem: viewModel.outfitOnDisplay?.accessories[2] ?? .sample, onPress: {
-                            _ in viewModel.navigateTo(screen: .detailedClothing)
+                        ClosetItemView(closetItem: homeVM.outfitOnDisplay?.accessories[2] ?? .sample, onPress: {
+                            _ in homeVM.navigateTo(screen: .detailedClothing)
                         })
                         .frame(width: 100, height: 100)
                     }
@@ -79,5 +79,5 @@ struct OutfitDetailView: View {
     }
 }
 #Preview {
-    OutfitDetailView()
+    OutfitDetailView(homeVM: .init(), clothesVM: .init())
 }
