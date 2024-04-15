@@ -13,12 +13,12 @@ struct OutfitItem: ClosetItem {
     let top: ClothingItem
     let bottom: ClothingItem
     let shoes: ClothingItem?
-    let other: [ClothingItem]
+    let accessories: [ClothingItem]
     
     var displayImage: Data? {
         return top.displayImage ?? (bottom.displayImage ?? shoes?.displayImage)
     }
     
-    static let sample = OutfitItem(name: "My favourite", top: .sample, bottom: .sample, shoes: .sample, other: [.sample])
+    static let sample = OutfitItem(name: "My favourite", top: .sample, bottom: .sample, shoes: .sample, accessories: [.sample])
     
 }
