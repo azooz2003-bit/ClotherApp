@@ -62,5 +62,5 @@ enum HomeScreen: Int, CaseIterable {
     }
 }
 enum Screen: Codable {
-    case home, uploadClothes, outfitForm, randomizedOutfitForm, clothingForm, confirmRandomizedOutfit, detailedOutfit, detailedClothing
+    case home, uploadClothes, outfitForm, randomizedOutfitForm, clothingForm, confirmRandomizedOutfit, detailedOutfit, detailedClothing, selectClothing
 }
