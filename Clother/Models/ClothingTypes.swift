@@ -19,7 +19,7 @@ struct Clothing {
     enum Kind: String, Property {
         var id: String  {self.rawValue}
 
-        case top, bottom, shoes, accessories
+        case top, bottom, shoes, jacket, accessories
         
     }
     
