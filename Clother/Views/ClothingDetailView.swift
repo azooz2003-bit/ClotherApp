@@ -15,10 +15,11 @@ struct ClothingDetailView: View {
      - Observe the UI components implemented under subviews folder. Do not reimplement a subview that has been built, use the subviews given to you as much as possible.
      - Don't forget to implement backwards navigation. Utilize the view model functions and variables for navigation.
      */
-    @ObservedObject var viewModel = HomeViewModel()
+    @ObservedObject var homeVM: HomeViewModel
+    @ObservedObject var clothesVM: ClothesViewModel
     
     var image: Image {
-        if let imageData = viewModel.clothingOnDisplay?.displayImage, let uiImage = UIImage(data: imageData) {
+        if let imageData = homeVM.clothingOnDisplay?.displayImage, let uiImage = UIImage(data: imageData) {
             return Image(uiImage: uiImage)
         } else  { return Image(systemName: "photo") }
     }
@@ -26,7 +27,7 @@ struct ClothingDetailView: View {
     var body: some View {
         VStack {
             Button(action: {
-                viewModel.returnToHome()
+                homeVM.returnToHome()
             }) {
                 Image(systemName: "arrow.left")
                     .resizable()
@@ -36,7 +37,7 @@ struct ClothingDetailView: View {
             }
             .padding()
             .offset(x: -140, y: -125)
-            Text(viewModel.clothingOnDisplay?.name ?? "Name of Clothing")
+            Text(homeVM.clothingOnDisplay?.name ?? "Name of Clothing")
                 .font(.title2)
                 .bold()
                 .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616))
@@ -51,12 +52,12 @@ struct ClothingDetailView: View {
             })
             .frame(width: 300, height: 300)
             VStack {
-                TypeCapsule(property: viewModel.clothingOnDisplay?.type ?? Clothing.Kind.top)
+                TypeCapsule(property: homeVM.clothingOnDisplay?.type ?? Clothing.Kind.top)
                 HStack (spacing: 10){
-                    Capsule(property: viewModel.clothingOnDisplay?.size ?? Clothing.Size.small)
-                    Capsule(property: viewModel.clothingOnDisplay?.color ?? Clothing.Color.red)
-                    Capsule(property: viewModel.clothingOnDisplay?.fabric ?? Clothing.Fabric.cotton)
-                    Capsule(property: viewModel.clothingOnDisplay?.weather ?? Clothing.Weather.warm)
+                    Capsule(property: homeVM.clothingOnDisplay?.size ?? Clothing.Size.small)
+                    Capsule(property: homeVM.clothingOnDisplay?.color ?? Clothing.Color.red)
+                    Capsule(property: homeVM.clothingOnDisplay?.fabric ?? Clothing.Fabric.cotton)
+                    Capsule(property: homeVM.clothingOnDisplay?.weather ?? Clothing.Weather.warm)
                 }
                 .padding(.top, 3)
             }
@@ -93,5 +94,5 @@ extension String {
     }
 }
 #Preview {
-    ClothingDetailView()
+    ClothingDetailView(homeVM: .init(), clothesVM: .init())
 }

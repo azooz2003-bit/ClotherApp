@@ -16,7 +16,7 @@ struct OutfitDetailView: View {
      - Don't forget to implement backwards navigation. Utilize the view model functions and variables for navigation.
      */
     @ObservedObject var homeVM: HomeViewModel
-    
+    @ObservedObject var clothesVM: ClothesViewModel
     
     var body: some View {
         VStack {
@@ -83,5 +83,5 @@ struct OutfitDetailView: View {
     }
 }
 #Preview {
-    OutfitDetailView(homeVM: HomeViewModel())
+    OutfitDetailView(homeVM: .init(), clothesVM: .init())
 }

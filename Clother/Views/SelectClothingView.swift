@@ -16,8 +16,10 @@ struct SelectClothingView: View {
         - Observe the UI components implemented under subviews folder. Do not reimplement a subview that has been built, use the subviews given to you as much as possible.
         - Don't forget to implement backwards navigation. Utilize the view model functions and variables for that.
      */
+    @State var selected: Clothing.Color? = nil
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        FormDropdown(promptTitle: "Color", selectedItem: $selected)
+        FormDropdown(promptTitle: "Color", selectedItem: $selected)
     }
 }
 
