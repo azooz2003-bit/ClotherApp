@@ -10,11 +10,13 @@ import SwiftUI
 struct SelectClothingView: View {
     @ObservedObject var homeVM: HomeViewModel
     @ObservedObject var clothesVM: ClothesViewModel
+    
+    @Binding var selectedAcc: Int?
 
     var body: some View {
         VStack {
             headerView
-            if let kind = selectedClothingKind {
+            if let kind = homeVM.selectedClothingKind {
                 ClosetGrid(onItemPress: { item in
                     handleItemPress(item: item, kind: kind)
                 }, closetItems: filteredClothingItems(for: kind))
@@ -72,11 +74,10 @@ struct SelectClothingView: View {
 }
 
 struct SelectClothingView_Previews: PreviewProvider {
+    @State var selectedAcc: Int?
+    
     static var previews: some View {
-        SelectClothingView(homeVM: HomeViewModel(), clothesVM: ClothesViewModel())
-            .onAppear {
-                selectedClothingKind = .top
-            }
+        SelectClothingView(homeVM: HomeViewModel(), clothesVM: ClothesViewModel(), selectedAcc: .constant(nil))
     }
 }
 

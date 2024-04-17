@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-var selectedClothingKind: Clothing.Kind?
-var selectedAcc: Int?
-
 struct OutfitFormView: View {
     // TODO: Do the following in this view:
     /*
@@ -26,6 +23,8 @@ struct OutfitFormView: View {
     @State private var bottomItem: ClothingItem
     @State private var shoeItem: ClothingItem
     @State private var accessoryItems: [ClothingItem]
+    @State var selectedAcc: Int?
+
 
     @State private var name: String = ""
     
@@ -97,22 +96,22 @@ struct OutfitFormView: View {
         VStack(spacing: 15) {
             HStack(spacing: 15) {
                 ClosetItemView(closetItem: topItem, onPress: {_ in
-                    selectedClothingKind = .top
+                    homeVM.selectedClothingKind = .top
                     homeVM.navigateTo(screen: .selectClothing)
                 })
                 ClosetItemView(closetItem: jacketItem, onPress: {_ in
-                    selectedClothingKind = .jacket
+                    homeVM.selectedClothingKind = .jacket
                     homeVM.navigateTo(screen: .selectClothing)
                 })
             }
             
             HStack(spacing: 15) {
                 ClosetItemView(closetItem: bottomItem, onPress: {_ in
-                    selectedClothingKind = .bottom
+                    homeVM.selectedClothingKind = .bottom
                     homeVM.navigateTo(screen: .selectClothing)
                 })
                 ClosetItemView(closetItem: shoeItem, onPress: {_ in
-                    selectedClothingKind = .shoes
+                    homeVM.selectedClothingKind = .shoes
                     homeVM.navigateTo(screen: .selectClothing)
                 })
             }
@@ -127,7 +126,7 @@ struct OutfitFormView: View {
                 HStack(spacing: 10) {
                     ForEach(0..<accessoryItems.count, id: \.self) { index in
                         ClosetItemView(closetItem: accessoryItems[index], onPress: {_ in
-                            selectedClothingKind = .accessories
+                            homeVM.selectedClothingKind = .accessories
                             selectedAcc = index
                             homeVM.navigateTo(screen: .selectClothing)
                         })

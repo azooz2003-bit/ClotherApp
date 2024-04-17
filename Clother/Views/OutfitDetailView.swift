@@ -47,7 +47,7 @@ struct OutfitDetailView: View {
                     }
                     HStack (spacing: 10) {
                         ClosetItemView(closetItem: homeVM.outfitOnDisplay?.bottom ?? .sample, onPress: {
-                            _ in homeVM.navigateTo(screen: .detailedClothing)
+                             _ in homeVM.navigateTo(screen: .detailedClothing)
                         })
                         ClosetItemView(closetItem: homeVM.outfitOnDisplay?.shoes ?? .sample, onPress: {
                             _ in homeVM.navigateTo(screen: .detailedClothing)

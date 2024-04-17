@@ -24,6 +24,8 @@ class HomeViewModel: ObservableObject {
     */
     @Published var navPath: NavigationPath
     
+    @Published var selectedClothingKind: Clothing.Kind?
+    
     init() {
         self.activeHomeScreen = .clothes
         clothingOnDisplay = nil
@@ -48,7 +50,6 @@ class HomeViewModel: ObservableObject {
         navPath.removeLast(navPath.count)
     }
     
-    @Published var selectedClothingKind: Clothing.Kind?
 
 }
 
