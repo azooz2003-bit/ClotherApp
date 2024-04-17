@@ -54,9 +54,9 @@ struct HomeView: View {
                 case Screen.outfitForm:
                     OutfitFormView(homeVM: homeVM, clothesVM: clothesVM).navigationBarBackButtonHidden()
                 case Screen.uploadClothes:
-                    UploadClothesView().navigationBarBackButtonHidden()
+                    UploadClothesView(homeVM: homeVM).navigationBarBackButtonHidden()
                 case Screen.randomizedOutfitForm:
-                    RandomOutfitFormView().navigationBarBackButtonHidden()
+                    RandomOutfitFormView(homeVM: homeVM, clothesVM: clothesVM).navigationBarBackButtonHidden()
                 case Screen.detailedOutfit:
                     OutfitDetailView(homeVM: homeVM, clothesVM: clothesVM).navigationBarBackButtonHidden()
                 case Screen.detailedClothing:

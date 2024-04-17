@@ -25,15 +25,111 @@ struct ConfirmRandomOutfitView: View {
 }
 */
 
+
+
 import SwiftUI
 
 struct CreateOutfitView: View {
+    @ObservedObject var homeVM: HomeViewModel
+    @ObservedObject var clothesVM: ClothesViewModel
     @State private var nameInput: String = ""
-
-    private let topGridItems = [GridItem(.flexible()), GridItem(.flexible())]
-    private let accessoryItems = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+    @Binding var topItem: ClothingItem
+    @Binding var jacketItem: ClothingItem
+    @Binding var bottomItem: ClothingItem
+    @Binding var shoeItem: ClothingItem
+    @Binding var accessoryItems: [ClothingItem]
 
     var body: some View {
+        VStack {
+            headerView
+            itemSelectionView
+            Spacer()
+            NameTextField(nameInput: $nameInput) // Placeholder for a custom TextField implementation
+            Spacer()
+            RoundedButton(onPress: {
+                clothesVM.createOutfit(name: nameInput, top: topItem, bottom: bottomItem, jacket: jacketItem, shoes: shoeItem, other: accessoryItems)
+                homeVM.navigateTo(screen: .home)
+            }, icon: "tray.and.arrow.down")
+        }
+    }
+
+    private var headerView: some View {
+        HStack {
+            Button(action: {
+                homeVM.returnToHome()
+            }) {
+                Image(systemName: "arrow.left")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 26, height: 21)
+                    .foregroundColor(Color(red: 0.53, green: 0.55, blue: 0.62))
+            }
+            .padding(.leading)  // Adds padding to the left of the button
+
+            Spacer()  // Pushes the button to the left and the title to the center
+
+            Text("Select Outfit")
+                .font(.title2)
+                .bold()
+                .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616))
+                .fontDesign(.monospaced)
+            
+            Spacer()  // Ensures the title remains centered
+            
+            // Invisible spacer to balance the HStack
+            Image(systemName: "arrow.left")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 26, height: 21)
+                .opacity(0)  // Makes this placeholder invisible
+            .padding(.trailing)
+        }
+        .padding([.top, .horizontal])
+        .padding(.bottom, 10)
+    }
+    
+    private var itemSelectionView: some View {
+        VStack(spacing: 15) {
+            HStack(spacing: 15) {
+                ClosetItemView(closetItem: topItem, onPress: {print($0)
+                })
+                ClosetItemView(closetItem: jacketItem, onPress: {print($0)
+                })
+            }
+            
+            HStack(spacing: 15) {
+                ClosetItemView(closetItem: bottomItem, onPress: {
+                    print($0)
+                })
+                ClosetItemView(closetItem: shoeItem, onPress: {print($0)
+                })
+            }
+            
+            VStack(spacing: 15) {
+                Text("Accessories")
+                    .bold()
+                    .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616))
+                    .fontDesign(.monospaced)
+                    .font(.system(size: 16))
+                    .padding(.bottom, 5)
+                HStack(spacing: 10) {
+                    ForEach(0..<accessoryItems.count, id: \.self) { index in
+                        ClosetItemView(closetItem: accessoryItems[index], onPress: {print($0)
+                        })
+                        .frame(width: 100, height: 100)
+                    }
+                }
+            }
+            .padding(.horizontal)
+        }
+    }
+}
+    /*
+    private let topGridItems = [GridItem(.flexible()), GridItem(.flexible())]
+    private let accessoryItems = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+*/
+    
+    /*var body: some View {
         VStack {
             HStack {
                 Image(systemName: "arrow.left")
@@ -98,12 +194,10 @@ struct CreateOutfitView: View {
         .navigationBarHidden(true)
     }
 }
+*/
 
-struct CreateOutfitView_Previews: PreviewProvider {
-    static var previews: some View {
-        CreateOutfitView()
-    }
-}
+
+
 
 
 
