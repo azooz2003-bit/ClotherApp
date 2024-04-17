@@ -48,6 +48,7 @@ class HomeViewModel: ObservableObject {
         navPath.removeLast(navPath.count)
     }
     
+    @Published var selectedClothingKind: Clothing.Kind?
 
 }
 

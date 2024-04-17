@@ -6,9 +6,32 @@
 //
 
 import Foundation
+import UIKit
 
 //TODO: make the necessary additions so that the view model properties can trigger view updates. HINT: think about what protocol and property wrapper to use.
 class ClothesViewModel: ObservableObject {
+    
+    @Published var selectedItems: [Clothing.Kind: ClothingItem] = [:]
+    // Ensure that selectItem is public and accessible
+    func selectItem(_ item: ClothingItem, for type: Clothing.Kind) {
+        selectedItems[type] = item
+    }
+    
+    @Published var accessoryItems: [ClothingItem] = [
+        ClothingItem(name: "Acc 1", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
+        ClothingItem(name: "Acc 2", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
+        ClothingItem(name: "Acc 3", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
+    ]
+
+    func updateAccessoryItem(_ item: ClothingItem, for index: Int) {
+        if index >= 0 && index < accessoryItems.count {
+            accessoryItems[index] = item
+        }
+    }
+    
+    func updateItem(_ item: ClothingItem, for kind: Clothing.Kind) {
+            selectedItems[kind] = item
+        }
     
     // These represent the complete, unfiltered collection of closet items.
     var userOutfits: [OutfitItem]

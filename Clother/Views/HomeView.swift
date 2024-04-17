@@ -52,7 +52,7 @@ struct HomeView: View {
             .navigationDestination(for: Screen.self, destination: { pathElement in
                 switch pathElement {
                 case Screen.outfitForm:
-                    OutfitFormView().navigationBarBackButtonHidden()
+                    OutfitFormView(homeVM: homeVM, clothesVM: clothesVM).navigationBarBackButtonHidden()
                 case Screen.uploadClothes:
                     UploadClothesView().navigationBarBackButtonHidden()
                 case Screen.randomizedOutfitForm:
