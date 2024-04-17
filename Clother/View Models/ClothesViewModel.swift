@@ -10,6 +10,12 @@ import Foundation
 //TODO: make the necessary additions so that the view model properties can trigger view updates. HINT: think about what protocol and property wrapper to use.
 class ClothesViewModel: ObservableObject {
     
+    @Published var selectedItems: [Clothing.Kind: ClothingItem] = [:]
+    // Ensure that selectItem is public and accessible
+    func selectItem(_ item: ClothingItem, for type: Clothing.Kind) {
+        selectedItems[type] = item
+    }
+    
     // These represent the complete, unfiltered collection of closet items.
     var userOutfits: [OutfitItem]
     var userClothes: [ClothingItem]

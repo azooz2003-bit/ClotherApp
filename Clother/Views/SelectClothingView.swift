@@ -8,21 +8,74 @@
 import SwiftUI
 
 struct SelectClothingView: View {
-    // TODO: Do the following in this view:
-    /*
-        - Expect to receive the app's view models.
-        - Build the UI. Create any necessary variables/functions.
-        - This screen will behave a bit differently. In that once the user confirms a selected clothing, they should navigate backwards.
-        - Observe the UI components implemented under subviews folder. Do not reimplement a subview that has been built, use the subviews given to you as much as possible.
-        - Don't forget to implement backwards navigation. Utilize the view model functions and variables for that.
-     */
-    @State var selected: Clothing.Color? = nil
+    @ObservedObject var homeVM: HomeViewModel
+    @ObservedObject var clothesVM: ClothesViewModel
+
     var body: some View {
-        FormDropdown(promptTitle: "Color", selectedItem: $selected)
-        FormDropdown(promptTitle: "Color", selectedItem: $selected)
+        VStack {
+            headerView
+            
+            if let kind = selectedClothingKind {
+                ClosetGrid(onItemPress: { item in handleItemPress(item: item, kind: kind) }, closetItems: filteredClothingItems(for: kind))
+            } else {
+                Spacer()
+                Text("No clothing type selected")
+                    .padding()
+            }
+        }
+    }
+
+    private var headerView: some View {
+        HStack {
+            Button(action: {
+                homeVM.returnToHome()
+            }) {
+                Image(systemName: "arrow.left")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 26, height: 21)
+                    .foregroundColor(Color(red: 0.53, green: 0.55, blue: 0.62))
+            }
+            .padding(.leading)
+
+            Spacer()
+
+            Text("Select Clothing")
+                .font(.title2)
+                .bold()
+                .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616))
+                .fontDesign(.monospaced)
+            
+            Spacer()
+            
+            Image(systemName: "arrow.left")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 26, height: 21)
+                .opacity(0)
+            .padding(.trailing)
+        }
+        .padding([.top, .horizontal])
+    }
+    
+    private func filteredClothingItems(for kind: Clothing.Kind) -> [ClothingItem] {
+        return clothesVM.clothesOnDisplay.filter { $0.type == kind }
+    }
+
+    private func handleItemPress(item: ClothingItem, kind: Clothing.Kind) {
+        clothesVM.selectItem(item, for: kind)
+        homeVM.navigateBackwards()
     }
 }
 
-#Preview {
-    SelectClothingView()
+// Preview for SelectClothingView
+struct SelectClothingView_Previews: PreviewProvider {
+    static var previews: some View {
+        // Create an instance of SelectClothingView within the preview
+        SelectClothingView(homeVM: HomeViewModel(), clothesVM: ClothesViewModel())
+            .onAppear {
+                // Set the global variable when the preview appears
+                selectedClothingKind = .top
+            }
+    }
 }

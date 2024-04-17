@@ -48,6 +48,7 @@ class HomeViewModel: ObservableObject {
         navPath.removeLast(navPath.count)
     }
     
+    @Published var selectedClothingKind: Clothing.Kind?
 
 }
 
@@ -62,5 +63,5 @@ enum HomeScreen: Int, CaseIterable {
     }
 }
 enum Screen: Codable {
-    case home, uploadClothes, outfitForm, randomizedOutfitForm, clothingForm, confirmRandomizedOutfit, detailedOutfit, detailedClothing
+    case home, uploadClothes, outfitForm, randomizedOutfitForm, clothingForm, confirmRandomizedOutfit, detailedOutfit, detailedClothing, selectClothing
 }
