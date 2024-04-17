@@ -20,6 +20,6 @@ struct OutfitItem: ClosetItem {
         return top.displayImage ?? (bottom.displayImage ?? shoes?.displayImage)
     }
     
-    static let sample = OutfitItem(name: "My favourite", top: .sample, bottom: .sample, jacket: .sample, shoes: .sample, accessories: [.sample])
-    
+    static let sample = OutfitItem(name: "My favourite", top: .sample, bottom: .sample, jacket:.sample, shoes: .sample, accessories: [.sample])
+
 }
