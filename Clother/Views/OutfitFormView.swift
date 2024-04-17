@@ -22,25 +22,25 @@ struct OutfitFormView: View {
     @ObservedObject var clothesVM: ClothesViewModel
     
     @State private var topItem: ClothingItem
-        @State private var jacketItem: ClothingItem
-        @State private var bottomItem: ClothingItem
-        @State private var shoeItem: ClothingItem
-        @State private var accessoryItems: [ClothingItem]
+    @State private var jacketItem: ClothingItem
+    @State private var bottomItem: ClothingItem
+    @State private var shoeItem: ClothingItem
+    @State private var accessoryItems: [ClothingItem]
 
-        init(homeVM: HomeViewModel, clothesVM: ClothesViewModel) {
-            self._homeVM = ObservedObject(initialValue: homeVM)
-            self._clothesVM = ObservedObject(initialValue: clothesVM)
-            // Initialize the default states
-            _topItem = State(initialValue: ClothingItem(name: "Top", type: .top, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()))
-            _jacketItem = State(initialValue: ClothingItem(name: "Jacket", type: .jacket, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()))
-            _bottomItem = State(initialValue: ClothingItem(name: "Bottom", type: .bottom, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()))
-            _shoeItem = State(initialValue: ClothingItem(name: "Shoes", type: .shoes, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()))
-            _accessoryItems = State(initialValue: [
-                ClothingItem(name: "Acc 1", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
-                ClothingItem(name: "Acc 2", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
-                ClothingItem(name: "Acc 3", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
-            ])
-        }
+    init(homeVM: HomeViewModel, clothesVM: ClothesViewModel) {
+        self._homeVM = ObservedObject(initialValue: homeVM)
+        self._clothesVM = ObservedObject(initialValue: clothesVM)
+        // Initialize the default states
+        _topItem = State(initialValue: ClothingItem(name: "Top", type: .top, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()))
+        _jacketItem = State(initialValue: ClothingItem(name: "Jacket", type: .jacket, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()))
+        _bottomItem = State(initialValue: ClothingItem(name: "Bottom", type: .bottom, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()))
+        _shoeItem = State(initialValue: ClothingItem(name: "Shoes", type: .shoes, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()))
+        _accessoryItems = State(initialValue: [
+            ClothingItem(name: "Acc 1", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
+            ClothingItem(name: "Acc 2", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
+            ClothingItem(name: "Acc 3", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
+        ])
+    }
     
     var body: some View {
         VStack {
