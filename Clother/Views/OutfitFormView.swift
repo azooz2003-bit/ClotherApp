@@ -27,6 +27,8 @@ struct OutfitFormView: View {
     @State private var shoeItem: ClothingItem
     @State private var accessoryItems: [ClothingItem]
 
+    @State private var name: String = ""
+    
     init(homeVM: HomeViewModel, clothesVM: ClothesViewModel) {
         self._homeVM = ObservedObject(initialValue: homeVM)
         self._clothesVM = ObservedObject(initialValue: clothesVM)
@@ -47,9 +49,12 @@ struct OutfitFormView: View {
             headerView
             itemSelectionView
             Spacer()
-            NameTextField() // Placeholder for a custom TextField implementation
+            NameTextField(nameInput: $name) // Placeholder for a custom TextField implementation
             Spacer()
-            RoundedButton(onPress: { homeVM.navigateTo(screen: .home) }, icon: "tray.and.arrow.down")
+            RoundedButton(onPress: {
+                clothesVM.createOutfit(name: name, top: topItem, bottom: bottomItem, jacket: jacketItem, shoes: shoeItem, other: accessoryItems)
+                homeVM.navigateTo(screen: .home)
+            }, icon: "tray.and.arrow.down")
         }
     }
 

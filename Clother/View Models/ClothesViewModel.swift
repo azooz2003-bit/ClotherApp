@@ -49,8 +49,8 @@ class ClothesViewModel: ObservableObject {
     }
     
     // TODO: Creates an outfit item and stores it in our application.
-    func createOutfit(name: String, top: ClothingItem, bottom: ClothingItem, shoes: ClothingItem?, other: [ClothingItem]) {
-        let outfit = OutfitItem(name: name, top: top, bottom: bottom, shoes: shoes, accessories: other)
+    func createOutfit(name: String, top: ClothingItem, bottom: ClothingItem, jacket: ClothingItem?, shoes: ClothingItem?, other: [ClothingItem]) {
+        let outfit = OutfitItem(name: name, top: top, bottom: bottom, jacket: jacket, shoes: shoes, accessories: other)
         saveOutfit(item: outfit)
     }
     
