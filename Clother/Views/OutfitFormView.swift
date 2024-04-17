@@ -21,13 +21,26 @@ struct OutfitFormView: View {
     @ObservedObject var homeVM: HomeViewModel
     @ObservedObject var clothesVM: ClothesViewModel
     
-    var topItem = ClothingItem(name: "Top", type: .top, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
-    var jacketItem = ClothingItem(name: "Jacket", type: .bottom, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
-    var bottomItem = ClothingItem(name: "Bottom", type: .bottom, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
-    var shoeItem = ClothingItem(name: "Shoes", type: .shoes, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
-    var accItem1 = ClothingItem(name: "Acc 1", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
-    var accItem2 = ClothingItem(name: "Acc 2", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
-    var accItem3 = ClothingItem(name: "Acc 3", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
+    @State private var topItem: ClothingItem
+        @State private var jacketItem: ClothingItem
+        @State private var bottomItem: ClothingItem
+        @State private var shoeItem: ClothingItem
+        @State private var accessoryItems: [ClothingItem]
+
+        init(homeVM: HomeViewModel, clothesVM: ClothesViewModel) {
+            self._homeVM = ObservedObject(initialValue: homeVM)
+            self._clothesVM = ObservedObject(initialValue: clothesVM)
+            // Initialize the default states
+            _topItem = State(initialValue: ClothingItem(name: "Top", type: .top, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()))
+            _jacketItem = State(initialValue: ClothingItem(name: "Jacket", type: .jacket, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()))
+            _bottomItem = State(initialValue: ClothingItem(name: "Bottom", type: .bottom, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()))
+            _shoeItem = State(initialValue: ClothingItem(name: "Shoes", type: .shoes, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()))
+            _accessoryItems = State(initialValue: [
+                ClothingItem(name: "Acc 1", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
+                ClothingItem(name: "Acc 2", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
+                ClothingItem(name: "Acc 3", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
+            ])
+        }
     
     var body: some View {
         VStack {
@@ -76,86 +89,57 @@ struct OutfitFormView: View {
     }
     
     private var itemSelectionView: some View {
-        VStack(spacing: 15) {
-            HStack(spacing: 15) {
-                ClosetItemView(closetItem: topItem, onPress: {_ in 
-                    selectedClothingKind = .top
-                    homeVM.navigateTo(screen: .selectClothing)
-                })
-                ClosetItemView(closetItem: jacketItem, onPress: {_ in
-                    selectedClothingKind = .jacket
-                    homeVM.navigateTo(screen: .selectClothing)
-                })
-            }
-            
-            HStack(spacing: 15) {
-                ClosetItemView(closetItem: bottomItem, onPress: {_ in
-                    selectedClothingKind = .bottom
-                    homeVM.navigateTo(screen: .selectClothing)
-                })
-                ClosetItemView(closetItem: shoeItem, onPress: {_ in
-                    selectedClothingKind = .shoes
-                    homeVM.navigateTo(screen: .selectClothing)
-                })
-            }
-            .padding(.bottom, 10)
-            
             VStack(spacing: 15) {
-                Text("Accessories")
-                    .bold()
-                    .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616))
-                    .fontDesign(.monospaced)
-                    .font(.system(size: 16))
-                    .padding(.bottom, 5)
-                HStack(spacing: 10) {
-                    ClosetItemView(closetItem: accItem1, onPress: {_ in
-                        selectedClothingKind = .accessories
-                        selectedAcc = 1
+                HStack(spacing: 15) {
+                    ClosetItemView(closetItem: topItem, onPress: {_ in
+                        selectedClothingKind = .top
                         homeVM.navigateTo(screen: .selectClothing)
                     })
-                    ClosetItemView(closetItem: accItem2, onPress: {_ in
-                        selectedClothingKind = .accessories
-                        selectedAcc = 2
+                    ClosetItemView(closetItem: jacketItem, onPress: {_ in
+                        selectedClothingKind = .jacket
                         homeVM.navigateTo(screen: .selectClothing)
                     })
-                    ClosetItemView(closetItem: accItem3, onPress: {_ in
-                        selectedClothingKind = .accessories
-                        selectedAcc = 3
-                        homeVM.navigateTo(screen: .selectClothing)
-                    })
-                }.frame(width: 100, height: 100)
-            }
-            .padding(.horizontal)
-        }
-    }
-
-    private func itemSelectionView(_ kind: Clothing.Kind) -> some View {
-        VStack {
-            if let item = clothesVM.selectedItems[kind] { // Direct access to `selectedItems`
-                Text(item.name)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue.opacity(0.2))
-                    .cornerRadius(10)
-            } else {
-                Button(action: {
-                    homeVM.navigateTo(screen: .selectClothing)
-                }) {
-                    Text("Select \(kind.id.capitalized)")
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue.opacity(0.2))
-                        .cornerRadius(10)
                 }
+                
+                HStack(spacing: 15) {
+                    ClosetItemView(closetItem: bottomItem, onPress: {_ in
+                        selectedClothingKind = .bottom
+                        homeVM.navigateTo(screen: .selectClothing)
+                    })
+                    ClosetItemView(closetItem: shoeItem, onPress: {_ in
+                        selectedClothingKind = .shoes
+                        homeVM.navigateTo(screen: .selectClothing)
+                    })
+                }
+                
+                VStack(spacing: 15) {
+                    Text("Accessories")
+                        .bold()
+                        .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616))
+                        .fontDesign(.monospaced)
+                        .font(.system(size: 16))
+                        .padding(.bottom, 5)
+                    HStack(spacing: 10) {
+                        ForEach(0..<accessoryItems.count, id: \.self) { index in
+                            ClosetItemView(closetItem: accessoryItems[index], onPress: {_ in
+                                selectedClothingKind = .accessories
+                                selectedAcc = index
+                                homeVM.navigateTo(screen: .selectClothing)
+                            })
+                            .frame(width: 100, height: 100)
+                        }
+                    }
+                }
+                .padding(.horizontal)
             }
         }
-        .padding(.horizontal)
     }
-}
 
-// Preview for OutfitFormView
-struct OutfitFormView_Previews: PreviewProvider {
-    static var previews: some View {
-        OutfitFormView(homeVM: HomeViewModel(), clothesVM: ClothesViewModel())
+    // Preview for OutfitFormView
+    struct OutfitFormView_Previews: PreviewProvider {
+        static var previews: some View {
+            OutfitFormView(homeVM: HomeViewModel(), clothesVM: ClothesViewModel())
+        }
     }
-}
+
+    

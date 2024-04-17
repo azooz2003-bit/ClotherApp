@@ -14,11 +14,11 @@ struct SelectClothingView: View {
     var body: some View {
         VStack {
             headerView
-            
             if let kind = selectedClothingKind {
-                ClosetGrid(onItemPress: { item in handleItemPress(item: item, kind: kind) }, closetItems: filteredClothingItems(for: kind))
+                ClosetGrid(onItemPress: { item in
+                    handleItemPress(item: item, kind: kind)
+                }, closetItems: filteredClothingItems(for: kind))
             } else {
-                Spacer()
                 Text("No clothing type selected")
                     .padding()
             }
@@ -27,9 +27,7 @@ struct SelectClothingView: View {
 
     private var headerView: some View {
         HStack {
-            Button(action: {
-                homeVM.returnToHome()
-            }) {
+            Button(action: homeVM.returnToHome) {
                 Image(systemName: "arrow.left")
                     .resizable()
                     .scaledToFit()
@@ -52,30 +50,32 @@ struct SelectClothingView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 26, height: 21)
-                .opacity(0)
-            .padding(.trailing)
+                .opacity(0)  // Invisible spacer to balance the HStack
+                .padding(.trailing)
         }
         .padding([.top, .horizontal])
     }
-    
+
     private func filteredClothingItems(for kind: Clothing.Kind) -> [ClothingItem] {
         return clothesVM.clothesOnDisplay.filter { $0.type == kind }
     }
 
     private func handleItemPress(item: ClothingItem, kind: Clothing.Kind) {
-        clothesVM.selectItem(item, for: kind)
+        if kind == .accessories, let index = selectedAcc {
+            clothesVM.updateAccessoryItem(item, for: index)
+        } else {
+            clothesVM.updateItem(item, for: kind)
+        }
         homeVM.navigateBackwards()
     }
 }
 
-// Preview for SelectClothingView
 struct SelectClothingView_Previews: PreviewProvider {
     static var previews: some View {
-        // Create an instance of SelectClothingView within the preview
         SelectClothingView(homeVM: HomeViewModel(), clothesVM: ClothesViewModel())
             .onAppear {
-                // Set the global variable when the preview appears
                 selectedClothingKind = .top
             }
     }
 }
+
