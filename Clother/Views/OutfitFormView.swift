@@ -89,57 +89,57 @@ struct OutfitFormView: View {
     }
     
     private var itemSelectionView: some View {
+        VStack(spacing: 15) {
+            HStack(spacing: 15) {
+                ClosetItemView(closetItem: topItem, onPress: {_ in
+                    selectedClothingKind = .top
+                    homeVM.navigateTo(screen: .selectClothing)
+                })
+                ClosetItemView(closetItem: jacketItem, onPress: {_ in
+                    selectedClothingKind = .jacket
+                    homeVM.navigateTo(screen: .selectClothing)
+                })
+            }
+            
+            HStack(spacing: 15) {
+                ClosetItemView(closetItem: bottomItem, onPress: {_ in
+                    selectedClothingKind = .bottom
+                    homeVM.navigateTo(screen: .selectClothing)
+                })
+                ClosetItemView(closetItem: shoeItem, onPress: {_ in
+                    selectedClothingKind = .shoes
+                    homeVM.navigateTo(screen: .selectClothing)
+                })
+            }
+            
             VStack(spacing: 15) {
-                HStack(spacing: 15) {
-                    ClosetItemView(closetItem: topItem, onPress: {_ in
-                        selectedClothingKind = .top
-                        homeVM.navigateTo(screen: .selectClothing)
-                    })
-                    ClosetItemView(closetItem: jacketItem, onPress: {_ in
-                        selectedClothingKind = .jacket
-                        homeVM.navigateTo(screen: .selectClothing)
-                    })
-                }
-                
-                HStack(spacing: 15) {
-                    ClosetItemView(closetItem: bottomItem, onPress: {_ in
-                        selectedClothingKind = .bottom
-                        homeVM.navigateTo(screen: .selectClothing)
-                    })
-                    ClosetItemView(closetItem: shoeItem, onPress: {_ in
-                        selectedClothingKind = .shoes
-                        homeVM.navigateTo(screen: .selectClothing)
-                    })
-                }
-                
-                VStack(spacing: 15) {
-                    Text("Accessories")
-                        .bold()
-                        .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616))
-                        .fontDesign(.monospaced)
-                        .font(.system(size: 16))
-                        .padding(.bottom, 5)
-                    HStack(spacing: 10) {
-                        ForEach(0..<accessoryItems.count, id: \.self) { index in
-                            ClosetItemView(closetItem: accessoryItems[index], onPress: {_ in
-                                selectedClothingKind = .accessories
-                                selectedAcc = index
-                                homeVM.navigateTo(screen: .selectClothing)
-                            })
-                            .frame(width: 100, height: 100)
-                        }
+                Text("Accessories")
+                    .bold()
+                    .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616))
+                    .fontDesign(.monospaced)
+                    .font(.system(size: 16))
+                    .padding(.bottom, 5)
+                HStack(spacing: 10) {
+                    ForEach(0..<accessoryItems.count, id: \.self) { index in
+                        ClosetItemView(closetItem: accessoryItems[index], onPress: {_ in
+                            selectedClothingKind = .accessories
+                            selectedAcc = index
+                            homeVM.navigateTo(screen: .selectClothing)
+                        })
+                        .frame(width: 100, height: 100)
                     }
                 }
-                .padding(.horizontal)
             }
+            .padding(.horizontal)
         }
     }
+}
 
-    // Preview for OutfitFormView
-    struct OutfitFormView_Previews: PreviewProvider {
-        static var previews: some View {
-            OutfitFormView(homeVM: HomeViewModel(), clothesVM: ClothesViewModel())
-        }
+// Preview for OutfitFormView
+struct OutfitFormView_Previews: PreviewProvider {
+    static var previews: some View {
+        OutfitFormView(homeVM: HomeViewModel(), clothesVM: ClothesViewModel())
     }
+}
 
     

@@ -19,6 +19,7 @@ struct SelectClothingView: View {
                     handleItemPress(item: item, kind: kind)
                 }, closetItems: filteredClothingItems(for: kind))
             } else {
+                Spacer()
                 Text("No clothing type selected")
                     .padding()
             }
