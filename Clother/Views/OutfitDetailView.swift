@@ -15,13 +15,13 @@ struct OutfitDetailView: View {
      - Observe the UI components implemented under subviews folder. Do not reimplement a subview that has been built, use the subviews given to you as much as possible.
      - Don't forget to implement backwards navigation. Utilize the view model functions and variables for navigation.
      */
-    @ObservedObject var viewModel = HomeViewModel()
-    
+    @ObservedObject var homeVM: HomeViewModel
+    @ObservedObject var clothesVM: ClothesViewModel
     
     var body: some View {
         VStack {
             Button(action: {
-                viewModel.returnToHome()
+                homeVM.returnToHome()
             }) {
                 Image(systemName: "arrow.left")
                     .resizable()
@@ -83,5 +83,5 @@ struct OutfitDetailView: View {
     }
 }
 #Preview {
-    OutfitDetailView()
+    OutfitDetailView(homeVM: .init(), clothesVM: .init())
 }
