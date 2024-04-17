@@ -29,6 +29,7 @@ struct NameTextField: View {
     }
 }
 
+
 struct NameTextFieldWrapper: View {
     @State private var name: String = ""  // Manage the text state here
 
