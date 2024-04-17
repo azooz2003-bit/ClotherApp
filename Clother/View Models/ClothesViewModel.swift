@@ -6,9 +6,32 @@
 //
 
 import Foundation
+import UIKit
 
 //TODO: make the necessary additions so that the view model properties can trigger view updates. HINT: think about what protocol and property wrapper to use.
 class ClothesViewModel: ObservableObject {
+    
+    @Published var selectedItems: [Clothing.Kind: ClothingItem] = [:]
+    // Ensure that selectItem is public and accessible
+    func selectItem(_ item: ClothingItem, for type: Clothing.Kind) {
+        selectedItems[type] = item
+    }
+    
+    @Published var accessoryItems: [ClothingItem] = [
+        ClothingItem(name: "Acc 1", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
+        ClothingItem(name: "Acc 2", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
+        ClothingItem(name: "Acc 3", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
+    ]
+
+    func updateAccessoryItem(_ item: ClothingItem, for index: Int) {
+        if index >= 0 && index < accessoryItems.count {
+            accessoryItems[index] = item
+        }
+    }
+    
+    func updateItem(_ item: ClothingItem, for kind: Clothing.Kind) {
+            selectedItems[kind] = item
+        }
     
     // These represent the complete, unfiltered collection of closet items.
     var userOutfits: [OutfitItem]
@@ -26,8 +49,8 @@ class ClothesViewModel: ObservableObject {
     }
     
     // TODO: Creates an outfit item and stores it in our application.
-    func createOutfit(name: String, top: ClothingItem, bottom: ClothingItem, shoes: ClothingItem?, other: [ClothingItem]) {
-        let outfit = OutfitItem(name: name, top: top, bottom: bottom, shoes: shoes, accessories: other)
+    func createOutfit(name: String, top: ClothingItem, bottom: ClothingItem, jacket: ClothingItem, shoes: ClothingItem?, other: [ClothingItem]) {
+        let outfit = OutfitItem(name: name, top: top, bottom: bottom, jacket: jacket, shoes: shoes, accessories: other)
         saveOutfit(item: outfit)
     }
     
@@ -45,8 +68,8 @@ class ClothesViewModel: ObservableObject {
         - In (top, bottom, shoes, accessories), top and bottom will always have a value unless an error is thrown indicating no tops or bottoms found. Shoes will be nil if no shoes are found. Accessories will be empty if none are found. Accessories size is no longer than 3.
      */
     func generateRandomOutfit(size: Clothing.Size?, color: Clothing.Color?, weather: Clothing.Weather?, fabric: Clothing.Fabric?)
-    throws -> (ClothingItem, ClothingItem, ClothingItem?, [ClothingItem])  {
-        
+    throws -> (ClothingItem, ClothingItem, ClothingItem?, ClothingItem?, [ClothingItem])  {
+
         // Filter clothes based on non-nil values
         let filteredTops = userClothes.filter { item in
             guard item.type == .top else { return false }
@@ -58,11 +81,13 @@ class ClothesViewModel: ObservableObject {
             return (size == nil || item.size == size) &&
             (weather == nil || item.weather == weather)
         }
+        let filteredJackets = userClothes.filter { $0.type == .jacket }
         let filteredShoes = userClothes.filter { $0.type == .shoes }
         let filteredAccessories = userClothes.filter { $0.type == .accessories }
 
         var randomTop: ClothingItem? = nil
         var randomBottom: ClothingItem? = nil
+        var randomJacket: ClothingItem? = nil
         var randomShoe: ClothingItem? = nil
         var randomAccessories: [ClothingItem] = []
  
@@ -107,6 +132,9 @@ class ClothesViewModel: ObservableObject {
         if randomBottom == nil {
             randomBottom = userClothes.filter { $0.type == .bottom }.randomElement()
         }
+        if let jacket = filteredJackets.randomElement() {
+            randomJacket = jacket
+        }
         
         // Choose shoes and accessories arbitrarily.
         if let shoe = filteredShoes.randomElement() {
@@ -119,7 +147,7 @@ class ClothesViewModel: ObservableObject {
         }
         
         if let randomTop, let randomBottom {
-            return (randomTop, randomBottom, randomShoe, randomAccessories)
+            return (randomTop, randomBottom, randomJacket, randomShoe, randomAccessories)
         } else {
         
             throw RandomOutfitError.generateError(randomTop, randomBottom)

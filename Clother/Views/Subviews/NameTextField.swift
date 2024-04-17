@@ -29,8 +29,20 @@ struct NameTextField: View {
     }
 }
 
-#Preview {
-    @State var name: String = ""
-    
-    return NameTextField(nameInput: $name)
+
+struct NameTextFieldWrapper: View {
+    @State private var name: String = ""  // Manage the text state here
+
+    var body: some View {
+        // Pass the @State variable as a binding to the NameTextField
+        NameTextField(nameInput: $name)
+            .padding()  // Optional padding for better layout in the preview
+    }
+}
+
+// Preview provider that uses the wrapper
+struct NameTextField_Previews: PreviewProvider {
+    static var previews: some View {
+        NameTextFieldWrapper()  // Use the wrapper view in the preview
+    }
 }

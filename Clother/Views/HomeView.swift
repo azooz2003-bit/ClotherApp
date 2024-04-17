@@ -16,23 +16,23 @@ struct HomeView: View {
      - Navigation should also work in this view. This screen can jump to multiple views as shown in Figma. Utilize the view model functions and variables for navigation. Since this is the root view, don't forget to wrap it with a navigation stack.
      - Your view models should be injected into the navigation and subview hierarchies as an 'environment object'.
      */
-    @StateObject var viewModel = HomeViewModel()
-    @StateObject var clothesModel = ClothesViewModel()
+    @StateObject var homeVM = HomeViewModel()
+    @StateObject var clothesVM = ClothesViewModel()
     @State private var searchText: String = ""
     
     var body: some View {
-        VStack {
+        NavigationStack(path: $homeVM.navPath) {
             HStack {
                 ForEach(HomeScreen.allCases, id: \.self) { item in
                     VStack {
                         Text(item.title)
                             .bold()
-                            .foregroundColor(item == viewModel.activeHomeScreen ?
+                            .foregroundColor(item == homeVM.activeHomeScreen ?
                                              Color(red: 0.53, green: 0.55, blue: 0.62) : Color(red: 0.53, green: 0.55, blue: 0.62).opacity(0.75))
                             .fontDesign(.monospaced)
                             .font(.system(size: 16))
                         
-                        if viewModel.activeHomeScreen == item {
+                        if homeVM.activeHomeScreen == item {
                             Capsule()
                                 .fill(Color(red: 0.53, green: 0.55, blue: 0.62))
                                 .frame(height: 4)
@@ -44,48 +44,64 @@ struct HomeView: View {
                     }
                     .onTapGesture {
                         withAnimation(.smooth, {
-                            viewModel.activeHomeScreen = item
+                            homeVM.activeHomeScreen = item
                         })
                     }
                 }
             }
+            .navigationDestination(for: Screen.self, destination: { pathElement in
+                switch pathElement {
+                case Screen.outfitForm:
+                    OutfitFormView(homeVM: homeVM, clothesVM: clothesVM).navigationBarBackButtonHidden()
+                case Screen.uploadClothes:
+                    UploadClothesView().navigationBarBackButtonHidden()
+                case Screen.randomizedOutfitForm:
+                    RandomOutfitFormView().navigationBarBackButtonHidden()
+                case Screen.detailedOutfit:
+                    OutfitDetailView(homeVM: homeVM, clothesVM: clothesVM).navigationBarBackButtonHidden()
+                case Screen.detailedClothing:
+                    ClothingDetailView(homeVM: homeVM, clothesVM: clothesVM).navigationBarBackButtonHidden()
+                default:
+                    HomeView()
+                }
+            })
             
             CustomSearchBar(
                 searchText: $searchText,
                 onSearch: {
-                    _ in clothesModel.search(input: searchText)
+                    _ in clothesVM.search(input: searchText)
                 }, onSettings: {
                     print("Settings")
                 })
             .padding(.top)
             
             
-            if (viewModel.activeHomeScreen == .clothes) {
+            if (homeVM.activeHomeScreen == .clothes) {
                 ClosetGrid<ClothingItem>(onItemPress: {
-                    _ in viewModel.navigateTo(screen: .detailedClothing)
+                    _ in homeVM.navigateTo(screen: .detailedClothing)
                     
-                }, closetItems: clothesModel.clothesOnDisplay)
+                }, closetItems: clothesVM.clothesOnDisplay)
             } else {
                 ClosetGrid<OutfitItem>(onItemPress: {
-                    _ in viewModel.navigateTo(screen: .detailedOutfit)
+                    _ in homeVM.navigateTo(screen: .detailedOutfit)
                     
-                }, closetItems: clothesModel.outfitsOnDisplay)
+                }, closetItems: clothesVM.outfitsOnDisplay)
             }
             
-            if (viewModel.activeHomeScreen == .clothes) {
+            if (homeVM.activeHomeScreen == .clothes) {
                 RoundedButton(onPress: {
-                    viewModel.navigateTo(screen: .uploadClothes)
+                    homeVM.navigateTo(screen: .uploadClothes)
                 }, icon: "camera")
                     .previewLayout(.sizeThatFits)
                     .transition(.slide.combined(with: .opacity))
             } else {
                 HStack (spacing: 75){
                     RoundedButton(onPress: {
-                        viewModel.navigateTo(screen: .outfitForm)
+                        homeVM.navigateTo(screen: .outfitForm)
                     }, icon: "hanger")
                         .previewLayout(.sizeThatFits)
                     RoundedButton(onPress: {
-                        viewModel.navigateTo(screen: .randomizedOutfitForm)
+                        homeVM.navigateTo(screen: .randomizedOutfitForm)
                     }, icon: "plus")
                         .previewLayout(.sizeThatFits)
                 }
