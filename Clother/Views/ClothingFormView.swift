@@ -15,8 +15,8 @@ struct ClothingFormView: View {
         - Observe the UI components implemented under subviews folder. Do not reimplement a subview that has been built, use the subviews given to you as much as possible.
         - Don't forget to implement backwards navigation. Utilize the view model functions and variables for navigation. Submitting the form should take us back to the root (HomeView).
      */
-    @ObservedObject var homeVM = HomeViewModel()
-    @ObservedObject var clothesVM = ClothesViewModel()
+    var homeVM = HomeViewModel()
+    var clothesVM = ClothesViewModel()
     
     @Binding var selectedImage: UIImage?
     @State private var name: String = ""
@@ -27,6 +27,12 @@ struct ClothingFormView: View {
     @State var selectedWeather: Clothing.Weather?
     @State var selectedFabric: Clothing.Fabric?
     
+    init(homeVM: HomeViewModel, clothesVM: ClothesViewModel, selectedImage: Binding<UIImage?>) {
+            self.homeVM = homeVM
+            self.clothesVM = clothesVM
+            self._selectedImage = selectedImage
+    }
+    
     var body: some View {
         Button(action: {
             homeVM.navigateTo(screen: .uploadClothes)
@@ -36,26 +42,37 @@ struct ClothingFormView: View {
                 .frame(width: 26, height: 21)
                 .foregroundColor(Color(red: 0.53, green: 0.55, blue: 0.62))
         }
-        .offset(x: -140)
+        .offset(x: -140, y: -10)
         VStack (spacing: 10) {
-            if let image = selectedImage {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 300, height: 300)
-            } else {
-                Image(systemName: "photo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 300, height: 300)
+            ZStack {
+                RoundedRectangle(cornerRadius: 15)
+                    .fill(ClotherStyle.CustomColor.foggyBlue)
+                    .stroke(
+                        ClotherStyle.CustomColor.gray,
+                        lineWidth: 3
+                    )
+                    .frame(width: 325, height: 325)
+                if let image = selectedImage {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 300, height: 300)
+                } else {
+                    Image(systemName: "photo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 300, height: 300)
+                }
             }
             NameTextField(nameInput: $name)
-            VStack {
-                FormDropdown(promptTitle: "Type", selectedItem: $selectedType)
-                FormDropdown(promptTitle: "Color", selectedItem: $selectedColor)
-                FormDropdown(promptTitle: "Size", selectedItem: $selectedSize)
-                FormDropdown(promptTitle: "Weather", selectedItem: $selectedWeather)
-                FormDropdown(promptTitle: "Fabric", selectedItem: $selectedFabric)
+            ScrollView {
+                VStack {
+                    FormDropdown(promptTitle: "Type", selectedItem: $selectedType)
+                    FormDropdown(promptTitle: "Color", selectedItem: $selectedColor)
+                    FormDropdown(promptTitle: "Size", selectedItem: $selectedSize)
+                    FormDropdown(promptTitle: "Weather", selectedItem: $selectedWeather)
+                    FormDropdown(promptTitle: "Fabric", selectedItem: $selectedFabric)
+                }
             }
             RoundedButton(onPress: {
                 guard let image = selectedImage else {
@@ -69,11 +86,10 @@ struct ClothingFormView: View {
                                          weather: selectedWeather ?? .cold,
                                          fabric: selectedFabric ?? .cotton)
             }, icon: "tray.and.arrow.down")
-            .padding(.top, 30)
         }
     }
 }
 
 #Preview {
-    ClothingFormView(selectedImage: .constant(nil))
+    ClothingFormView(homeVM: HomeViewModel(), clothesVM: ClothesViewModel(), selectedImage: .constant(nil))
 }

@@ -16,11 +16,18 @@ import SwiftUI
      */
 struct UploadClothesView: View {
     
-    @ObservedObject var homeVM = HomeViewModel()
+    var homeVM = HomeViewModel()
     
     @State var isImagePickerShown = false
     @State var isImageTakerShown = false
     @State var selectedImage: UIImage?
+    
+    init(homeVM: HomeViewModel, isImagePickerShown: Bool = false, isImageTakerShown: Bool = false, selectedImage: UIImage? = nil) {
+        self.homeVM = homeVM
+        self.isImagePickerShown = isImagePickerShown
+        self.isImageTakerShown = isImageTakerShown
+        self.selectedImage = selectedImage
+    }
     
     var body: some View {
         VStack {
@@ -39,12 +46,12 @@ struct UploadClothesView: View {
                 }
             }
             if selectedImage != nil {
-                NavigationLink(destination: ClothingFormView(selectedImage: $selectedImage)) {
+                NavigationLink(destination: ClothingFormView(homeVM: HomeViewModel(), clothesVM: ClothesViewModel(), selectedImage: $selectedImage)) {
                 }
             }
         }
     }
 }
 #Preview {
-    UploadClothesView()
+    UploadClothesView(homeVM: HomeViewModel())
 }
