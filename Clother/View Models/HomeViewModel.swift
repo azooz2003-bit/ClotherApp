@@ -24,6 +24,8 @@ class HomeViewModel: ObservableObject {
     */
     @Published var navPath: NavigationPath
     
+    @Published var selectedClothingKind: Clothing.Kind?
+    
     init() {
         self.activeHomeScreen = .clothes
         clothingOnDisplay = nil
@@ -62,5 +64,5 @@ enum HomeScreen: Int, CaseIterable {
     }
 }
 enum Screen: Codable {
-    case home, uploadClothes, outfitForm, randomizedOutfitForm, clothingForm, confirmRandomizedOutfit, detailedOutfit, detailedClothing
+    case home, uploadClothes, outfitForm, randomizedOutfitForm, clothingForm, confirmRandomizedOutfit, detailedOutfit, detailedClothing, selectClothing
 }

@@ -30,26 +30,31 @@ struct OutfitDetailView: View {
                 
             }
             .padding()
-            .offset(x: -140, y: -50)
+            .offset(x: -140, y: -65)
             Text(homeVM.outfitOnDisplay?.name ?? "Name of Outfit")
                 .font(.title2)
                 .bold()
                 .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616))
                 .fontDesign(.monospaced)
-                .padding(.bottom, 30)
-            
-            HStack {
-                VStack (spacing: 15){
-                    ClosetItemView(closetItem: homeVM.outfitOnDisplay?.top ?? .sample, onPress: {
-                        print($0)
-                    })
-                    ClosetItemView(closetItem: homeVM.outfitOnDisplay?.bottom ?? .sample, onPress: {
-                        _ in homeVM.navigateTo(screen: .detailedClothing)
-                    })
-                    ClosetItemView(closetItem: homeVM.outfitOnDisplay?.shoes ?? .sample, onPress: {
-                        _ in homeVM.navigateTo(screen: .detailedClothing)
-                    })
+                VStack (spacing: 10){
+                    HStack (spacing: 10) {
+                        ClosetItemView(closetItem: homeVM.outfitOnDisplay?.top ?? .sample, onPress: {
+                            _ in homeVM.navigateTo(screen: .detailedClothing)
+                        })
+                        ClosetItemView(closetItem: homeVM.outfitOnDisplay?.jacket ?? .sample, onPress: {
+                            _ in homeVM.navigateTo(screen: .detailedClothing)
+                        })
+                    }
+                    HStack (spacing: 10) {
+                        ClosetItemView(closetItem: homeVM.outfitOnDisplay?.bottom ?? .sample, onPress: {
+                             _ in homeVM.navigateTo(screen: .detailedClothing)
+                        })
+                        ClosetItemView(closetItem: homeVM.outfitOnDisplay?.shoes ?? .sample, onPress: {
+                            _ in homeVM.navigateTo(screen: .detailedClothing)
+                        })
+                    }
                 }
+                .padding(.bottom)
                 VStack {
                     Text("Accessories")
                         .bold()
@@ -57,7 +62,7 @@ struct OutfitDetailView: View {
                         .fontDesign(.monospaced)
                         .font(.system(size: 16))
                         .padding(.bottom, 5)
-                    VStack (spacing: 15){
+                    HStack (spacing: 15){
                         ClosetItemView(closetItem: homeVM.outfitOnDisplay?.accessories[0] ?? .sample, onPress: {
                             _ in homeVM.navigateTo(screen: .detailedClothing)
                         })
@@ -75,7 +80,6 @@ struct OutfitDetailView: View {
                 }
                 .padding(.horizontal)
             }
-        }
     }
 }
 #Preview {
