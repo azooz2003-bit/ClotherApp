@@ -15,8 +15,8 @@ struct ClothingFormView: View {
         - Observe the UI components implemented under subviews folder. Do not reimplement a subview that has been built, use the subviews given to you as much as possible.
         - Don't forget to implement backwards navigation. Utilize the view model functions and variables for navigation. Submitting the form should take us back to the root (HomeView).
      */
-    var homeVM = HomeViewModel()
-    var clothesVM = ClothesViewModel()
+    var homeVM: HomeViewModel
+    var clothesVM: ClothesViewModel
     
     @Binding var selectedImage: UIImage?
     @State private var name: String = ""

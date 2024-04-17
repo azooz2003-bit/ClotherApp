@@ -16,7 +16,7 @@ import SwiftUI
      */
 struct UploadClothesView: View {
     
-    var homeVM = HomeViewModel()
+    @ObservedObject var homeVM: HomeViewModel
     
     @State var isImagePickerShown = false
     @State var isImageTakerShown = false
