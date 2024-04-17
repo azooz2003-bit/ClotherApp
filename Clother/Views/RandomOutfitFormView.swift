@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RandomOutfitFormView: View {
+/*struct RandomOutfitFormView: View {
     // TODO: Do the following in this view:
     /*
         - Expect to receive the app's view models.
@@ -23,3 +23,45 @@ struct RandomOutfitFormView: View {
 #Preview {
     RandomOutfitFormView()
 }
+*/
+import SwiftUI
+
+struct RandomOutfitFormView: View {
+    @State private var selectedKind: Clothing.Kind?
+    @State private var selectedSize: Clothing.Size?
+    @State private var selectedColor: Clothing.Color?
+    @State private var selectedWeather: Clothing.Weather?
+    @State private var selectedFabric: Clothing.Fabric?
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Spacer()
+            
+            FormDropdown(promptTitle: "Size", selectedItem: $selectedSize)
+            FormDropdown(promptTitle: "Color", selectedItem: $selectedColor)
+            FormDropdown(promptTitle: "Weather", selectedItem: $selectedWeather)
+            FormDropdown(promptTitle: "Fabric", selectedItem: $selectedFabric)
+            
+            RoundedRectangleButton(onPress: randomizeSelection, buttonText: "Randomize")
+            
+            Spacer()
+        }
+        .navigationBarTitle("Random Outfit Generator")
+        .padding()
+    }
+
+    private func randomizeSelection() {
+        selectedKind = Clothing.Kind.allCases.randomElement()
+        selectedSize = Clothing.Size.allCases.randomElement()
+        selectedColor = Clothing.Color.allCases.randomElement()
+        selectedWeather = Clothing.Weather.allCases.randomElement()
+        selectedFabric = Clothing.Fabric.allCases.randomElement()
+    }
+}
+
+struct RandomOutfitFormView_Previews: PreviewProvider {
+    static var previews: some View {
+        RandomOutfitFormView()
+    }
+}
+
