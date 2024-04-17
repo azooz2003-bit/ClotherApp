@@ -10,7 +10,7 @@ import SwiftUI
 struct NameTextField: View {
     
     // TODO: this variable is missing something that will allow us to share it's value with the superview.
-    @State var nameInput: String = ""
+    @Binding var nameInput: String
     let customColor = ClotherStyle.CustomColor.self
 
     var body: some View {
@@ -30,5 +30,7 @@ struct NameTextField: View {
 }
 
 #Preview {
-    NameTextField(nameInput: "")
+    @State var name: String = ""
+    
+    return NameTextField(nameInput: $name)
 }
