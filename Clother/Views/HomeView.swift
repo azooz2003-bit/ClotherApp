@@ -58,26 +58,24 @@ struct HomeView: View {
                     }
                 }
             }
-            .navigationDestination(for: Screen.self, destination: { pathElement in
+            .navigationDestination(for: Phase1Screen.self, destination: { pathElement in
                 switch pathElement {
-                case Screen.outfitForm:
+                case .outfitForm:
                     OutfitFormView(homeVM: homeVM, clothesVM: clothesVM).navigationBarBackButtonHidden()
-                case Screen.randomizedOutfitForm:
-                    RandomOutfitFormView().navigationBarBackButtonHidden()
-                case Screen.detailedOutfit:
+                case .randomizedOutfitForm:
+                    RandomOutfitFormView(homeVM: homeVM, clothesVM: clothesVM).navigationBarBackButtonHidden()
+                case .detailedOutfit:
                     OutfitDetailView(homeVM: homeVM, clothesVM: clothesVM).navigationBarBackButtonHidden()
-                case Screen.detailedClothing:
+                case .detailedClothing:
                     ClothingDetailView(homeVM: homeVM, clothesVM: clothesVM).navigationBarBackButtonHidden()
-                case Screen.clothingForm:
+                case .clothingForm:
                     ClothingFormView(homeVM: homeVM, clothesVM: clothesVM, selectedImage: $selectedImage).navigationBarBackButtonHidden()
-                default:
-                    Color(.black)
                 }
             })
             CustomSearchBar(
                 searchText: $searchText,
                 onSearch: {
-                    _ in clothesVM.search(input: searchText)
+                    clothesVM.search(input: searchText)
                 }, onSettings: {
                     clothesVM.createClothing(name: "we", image: UIImage(systemName: "photo")!.pngData()! , type: .accessories, size: .medium, color: .black, weather: .cold, fabric: .cotton)
                     print(clothesVM.clothesOnDisplay)
@@ -89,14 +87,14 @@ struct HomeView: View {
                 ClosetGrid<ClothingItem>(onItemPress: {
                     item in
                     homeVM.clothingOnDisplay = item
-                    homeVM.navigateTo(screen: .detailedClothing)
+                    homeVM.navigateTo(screen: Phase1Screen.detailedClothing)
                     
                 }, closetItems: clothesVM.clothesOnDisplay)
             } else {
                 ClosetGrid<OutfitItem>(onItemPress: {
                     item in
                     homeVM.outfitOnDisplay = item
-                    homeVM.navigateTo(screen: .detailedOutfit)
+                    homeVM.navigateTo(screen: Phase1Screen.detailedOutfit)
                     
                 }, closetItems: clothesVM.outfitsOnDisplay)
             }
@@ -111,6 +109,7 @@ struct HomeView: View {
                         .sheet(isPresented: $isImageTakerShown) {
                             ImagePicker(image: $takenSelectedImage, isShown: $isImageTakerShown, sourceType: .camera)
                         }
+                        .transition(.slide.combined(with: .opacity))
                     }
                     if (!buttonPressed) {
                         RoundedButton(onPress: {
@@ -122,7 +121,9 @@ struct HomeView: View {
                         .transition(.slide.combined(with: .opacity))
                     } else {
                         RoundedButton(onPress: {
-                            buttonPressed.toggle()
+                            withAnimation(.bouncy) {
+                                buttonPressed.toggle()
+                            }
                         }, icon: "x.circle")
                             .previewLayout(.sizeThatFits)
                         .transition(.slide.combined(with: .opacity))
@@ -135,19 +136,20 @@ struct HomeView: View {
                         .sheet(isPresented: $isImagePickerShown) {
                             ImagePicker(image: $selectedImage, isShown: $isImagePickerShown, sourceType: .photoLibrary)
                         }
+                        .transition(.slide.combined(with: .opacity))
                     }
                 }
-                .onChange(of: selectedImage, perform: { _ in
-                homeVM.navigateTo(screen: .clothingForm)
-            })
+                .onChange(of: selectedImage) {
+                    homeVM.navigateTo(screen: Phase1Screen.clothingForm)
+                }
             } else {
                 HStack (spacing: 75){
                     RoundedButton(onPress: {
-                        homeVM.navigateTo(screen: .outfitForm)
+                        homeVM.navigateTo(screen: Phase1Screen.outfitForm)
                     }, icon: "hanger")
                         .previewLayout(.sizeThatFits)
                     RoundedButton(onPress: {
-                        homeVM.navigateTo(screen: .randomizedOutfitForm)
+                        homeVM.navigateTo(screen: Phase1Screen.randomizedOutfitForm)
                     }, icon: "plus")
                         .previewLayout(.sizeThatFits)
                 }

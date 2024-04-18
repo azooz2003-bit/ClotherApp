@@ -15,8 +15,8 @@ struct ClothingDetailView: View {
      - Observe the UI components implemented under subviews folder. Do not reimplement a subview that has been built, use the subviews given to you as much as possible.
      - Don't forget to implement backwards navigation. Utilize the view model functions and variables for navigation.
      */
-    @ObservedObject var homeVM: HomeViewModel
-    @ObservedObject var clothesVM: ClothesViewModel
+    @StateObject var homeVM: HomeViewModel
+    @StateObject var clothesVM: ClothesViewModel
     
     var image: Image {
         if let imageData = homeVM.clothingOnDisplay?.displayImage, let uiImage = UIImage(data: imageData) {
@@ -35,8 +35,10 @@ struct ClothingDetailView: View {
                     .foregroundColor(Color(red: 0.53, green: 0.55, blue: 0.62))
                 
             }
-            .padding()
-            .offset(x: -140, y: -125)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .offset(x: 25)
+            .padding(.vertical)
+            
             Text(homeVM.clothingOnDisplay?.name ?? "Name of Clothing")
                 .font(.title2)
                 .bold()
@@ -62,7 +64,7 @@ struct ClothingDetailView: View {
                 .padding(.top, 3)
             }
             .padding(.top, 30)
-        }
+        }.frame(maxHeight: .infinity, alignment: .top)
     }
 }
 private func Capsule<T: Property>(property: T) -> some View {

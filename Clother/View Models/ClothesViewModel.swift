@@ -30,8 +30,8 @@ class ClothesViewModel: ObservableObject {
     }
     
     func updateItem(_ item: ClothingItem, for kind: Clothing.Kind) {
-            selectedItems[kind] = item
-        }
+        selectedItems[kind] = item
+    }
     
     // These represent the complete, unfiltered collection of closet items.
     @Published var userOutfits: [OutfitItem]
@@ -168,9 +168,13 @@ class ClothesViewModel: ObservableObject {
     // TODO: Manipulate the closet items on display such that only items with the provided input in their name are visible.
     func search(input: String, forClothes: Bool = true) {
         if forClothes {
+            if input == "" { clothesOnDisplay = userClothes; return }
             clothesOnDisplay = userClothes.filter {$0.name.lowercased().contains(input.lowercased()) }
+            print(clothesOnDisplay)
         } else {
+            if input == "" { outfitsOnDisplay = userOutfits; return }
             outfitsOnDisplay = userOutfits.filter {$0.name.lowercased().contains(input.lowercased()) }
+            print(outfitsOnDisplay)
         }
     }
     

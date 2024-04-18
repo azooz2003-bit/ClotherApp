@@ -15,8 +15,8 @@ struct OutfitDetailView: View {
      - Observe the UI components implemented under subviews folder. Do not reimplement a subview that has been built, use the subviews given to you as much as possible.
      - Don't forget to implement backwards navigation. Utilize the view model functions and variables for navigation.
      */
-    @ObservedObject var homeVM: HomeViewModel
-    @ObservedObject var clothesVM: ClothesViewModel
+    @StateObject var homeVM: HomeViewModel
+    @StateObject var clothesVM: ClothesViewModel
     
     var body: some View {
         VStack {
@@ -29,8 +29,10 @@ struct OutfitDetailView: View {
                     .foregroundColor(Color(red: 0.53, green: 0.55, blue: 0.62))
                 
             }
-            .padding()
-            .offset(x: -140, y: -65)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .offset(x: 25)
+            .padding(.vertical)
+            
             Text(homeVM.outfitOnDisplay?.name ?? "Name of Outfit")
                 .font(.title2)
                 .bold()
@@ -39,18 +41,20 @@ struct OutfitDetailView: View {
                 VStack (spacing: 10){
                     HStack (spacing: 10) {
                         ClosetItemView(closetItem: homeVM.outfitOnDisplay?.top ?? .sample, onPress: {
-                            _ in homeVM.navigateTo(screen: .detailedClothing)
+                            _ in 
+                            homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
                         })
                         ClosetItemView(closetItem: homeVM.outfitOnDisplay?.jacket ?? .sample, onPress: {
-                            _ in homeVM.navigateTo(screen: .detailedClothing)
+                            _ in 
+                            homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
                         })
                     }
                     HStack (spacing: 10) {
                         ClosetItemView(closetItem: homeVM.outfitOnDisplay?.bottom ?? .sample, onPress: {
-                             _ in homeVM.navigateTo(screen: .detailedClothing)
+                            _ in homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
                         })
                         ClosetItemView(closetItem: homeVM.outfitOnDisplay?.shoes ?? .sample, onPress: {
-                            _ in homeVM.navigateTo(screen: .detailedClothing)
+                            _ in homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
                         })
                     }
                 }
@@ -64,15 +68,15 @@ struct OutfitDetailView: View {
                         .padding(.bottom, 5)
                     HStack (spacing: 15){
                         ClosetItemView(closetItem: homeVM.outfitOnDisplay?.accessories[0] ?? .sample, onPress: {
-                            _ in homeVM.navigateTo(screen: .detailedClothing)
+                            _ in homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
                         })
                         .frame(width: 100, height: 100)
                         ClosetItemView(closetItem: homeVM.outfitOnDisplay?.accessories[1] ?? .sample, onPress: {
-                            _ in homeVM.navigateTo(screen: .detailedClothing)
+                            _ in homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
                         })
                         .frame(width: 100, height: 100)
                         ClosetItemView(closetItem: homeVM.outfitOnDisplay?.accessories[2] ?? .sample, onPress: {
-                            _ in homeVM.navigateTo(screen: .detailedClothing)
+                            _ in homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
                         })
                         .frame(width: 100, height: 100)
                     }
@@ -80,6 +84,7 @@ struct OutfitDetailView: View {
                 }
                 .padding(.horizontal)
             }
+        .frame(maxHeight: .infinity , alignment: .top)
     }
 }
 #Preview {

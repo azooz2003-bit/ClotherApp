@@ -15,33 +15,21 @@ struct OutfitFormView: View {
         - Observe the UI components implemented under subviews folder. Do not reimplement a subview that has been built, use the subviews given to you as much as possible.
         - Navigation should also work in this view. This screen can jump to a certain view as shown in Figma. Utilize the view model functions and variables for navigation. Don't forget to implement backwards navigation.  Submitting the form should take us back to the root (HomeView).
      */
-    @ObservedObject var homeVM: HomeViewModel
-    @ObservedObject var clothesVM: ClothesViewModel
+    @StateObject var homeVM: HomeViewModel
+    @StateObject var clothesVM: ClothesViewModel
     
-    @State private var topItem: ClothingItem
-    @State private var jacketItem: ClothingItem
-    @State private var bottomItem: ClothingItem
-    @State private var shoeItem: ClothingItem
-    @State private var accessoryItems: [ClothingItem]
+    @State private var topItem: ClothingItem = ClothingItem(name: "Top", type: .top, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
+    @State private var jacketItem: ClothingItem = ClothingItem(name: "Jacket", type: .jacket, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
+    @State private var bottomItem: ClothingItem = ClothingItem(name: "Bottom", type: .bottom, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
+    @State private var shoeItem: ClothingItem = ClothingItem(name: "Shoes", type: .shoes, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
+    @State private var accessoryItems: [ClothingItem] = [
+        ClothingItem(name: "Acc 1", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
+        ClothingItem(name: "Acc 2", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
+        ClothingItem(name: "Acc 3", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
+    ]
+    
     @State var selectedAcc: Int?
-
-
     @State private var name: String = ""
-    
-    init(homeVM: HomeViewModel, clothesVM: ClothesViewModel) {
-        self._homeVM = ObservedObject(initialValue: homeVM)
-        self._clothesVM = ObservedObject(initialValue: clothesVM)
-        // Initialize the default states
-        _topItem = State(initialValue: ClothingItem(name: "Top", type: .top, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()))
-        _jacketItem = State(initialValue: ClothingItem(name: "Jacket", type: .jacket, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()))
-        _bottomItem = State(initialValue: ClothingItem(name: "Bottom", type: .bottom, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()))
-        _shoeItem = State(initialValue: ClothingItem(name: "Shoes", type: .shoes, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()))
-        _accessoryItems = State(initialValue: [
-            ClothingItem(name: "Acc 1", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
-            ClothingItem(name: "Acc 2", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
-            ClothingItem(name: "Acc 3", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
-        ])
-    }
     
     var body: some View {
         VStack {
@@ -51,16 +39,28 @@ struct OutfitFormView: View {
             NameTextField(nameInput: $name) // Placeholder for a custom TextField implementation
             Spacer()
             RoundedButton(onPress: {
-                clothesVM.createOutfit(name: name, top: topItem, bottom: bottomItem, jacket: jacketItem, shoes: shoeItem, other: accessoryItems)
-                homeVM.navigateTo(screen: .home)
+                clothesVM.createOutfit(
+                   name: name,
+                   top: clothesVM.selectedItems[.top] ?? topItem,
+                   bottom: clothesVM.selectedItems[.bottom] ?? bottomItem,
+                   jacket: clothesVM.selectedItems[.jacket] ?? jacketItem,
+                   shoes: clothesVM.selectedItems[.shoes] ?? shoeItem,
+                   other: clothesVM.accessoryItems
+                )
+                homeVM.navigateBackwards()
             }, icon: "tray.and.arrow.down")
         }
+        .navigationDestination(for: Phase2Screen.self, destination: { element in
+            // Go to Selection screen
+            SelectClothingView(homeVM: homeVM, clothesVM: clothesVM, selectedAcc: $selectedAcc)
+                .navigationBarBackButtonHidden()
+        })
     }
 
     private var headerView: some View {
         HStack {
             Button(action: {
-                homeVM.returnToHome()
+                homeVM.navigateBackwards()
             }) {
                 Image(systemName: "arrow.left")
                     .resizable()
@@ -95,24 +95,24 @@ struct OutfitFormView: View {
     private var itemSelectionView: some View {
         VStack(spacing: 15) {
             HStack(spacing: 15) {
-                ClosetItemView(closetItem: topItem, onPress: {_ in
+                ClosetItemView(closetItem: clothesVM.selectedItems[.top] ?? topItem, onPress: {_ in
                     homeVM.selectedClothingKind = .top
-                    homeVM.navigateTo(screen: .selectClothing)
+                    homeVM.navigateTo(screen: Phase2Screen.selectClothing)
                 })
-                ClosetItemView(closetItem: jacketItem, onPress: {_ in
+                ClosetItemView(closetItem: clothesVM.selectedItems[.jacket] ?? jacketItem, onPress: {_ in
                     homeVM.selectedClothingKind = .jacket
-                    homeVM.navigateTo(screen: .selectClothing)
+                    homeVM.navigateTo(screen: Phase2Screen.selectClothing)
                 })
             }
             
             HStack(spacing: 15) {
-                ClosetItemView(closetItem: bottomItem, onPress: {_ in
+                ClosetItemView(closetItem: clothesVM.selectedItems[.bottom] ?? bottomItem, onPress: {_ in
                     homeVM.selectedClothingKind = .bottom
-                    homeVM.navigateTo(screen: .selectClothing)
+                    homeVM.navigateTo(screen: Phase2Screen.selectClothing)
                 })
-                ClosetItemView(closetItem: shoeItem, onPress: {_ in
+                ClosetItemView(closetItem: clothesVM.selectedItems[.shoes] ?? shoeItem, onPress: {_ in
                     homeVM.selectedClothingKind = .shoes
-                    homeVM.navigateTo(screen: .selectClothing)
+                    homeVM.navigateTo(screen: Phase2Screen.selectClothing)
                 })
             }
             
@@ -125,10 +125,10 @@ struct OutfitFormView: View {
                     .padding(.bottom, 5)
                 HStack(spacing: 10) {
                     ForEach(0..<accessoryItems.count, id: \.self) { index in
-                        ClosetItemView(closetItem: accessoryItems[index], onPress: {_ in
+                        ClosetItemView(closetItem: clothesVM.accessoryItems[index], onPress: {_ in
                             homeVM.selectedClothingKind = .accessories
                             selectedAcc = index
-                            homeVM.navigateTo(screen: .selectClothing)
+                            homeVM.navigateTo(screen: Phase2Screen.selectClothing)
                         })
                         .frame(width: 100, height: 100)
                     }
@@ -142,7 +142,7 @@ struct OutfitFormView: View {
 // Preview for OutfitFormView
 struct OutfitFormView_Previews: PreviewProvider {
     static var previews: some View {
-        OutfitFormView(homeVM: HomeViewModel(), clothesVM: ClothesViewModel())
+        OutfitFormView(homeVM: .init(), clothesVM: .init())
     }
 }
 

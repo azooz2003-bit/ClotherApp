@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct SelectClothingView: View {
-    @ObservedObject var homeVM: HomeViewModel
-    @ObservedObject var clothesVM: ClothesViewModel
+    @StateObject var homeVM: HomeViewModel
+    @StateObject var clothesVM: ClothesViewModel
     
     @Binding var selectedAcc: Int?
 
@@ -29,34 +29,29 @@ struct SelectClothingView: View {
     }
 
     private var headerView: some View {
-        HStack {
-            Button(action: homeVM.returnToHome) {
+        ZStack {
+            Button(action: homeVM.navigateBackwards) {
                 Image(systemName: "arrow.left")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 26, height: 21)
                     .foregroundColor(Color(red: 0.53, green: 0.55, blue: 0.62))
             }
-            .padding(.leading)
-
-            Spacer()
+            .offset(x: 25)
+            .frame(maxWidth: .infinity,alignment: .leading)
 
             Text("Select Clothing")
                 .font(.title2)
                 .bold()
                 .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616))
                 .fontDesign(.monospaced)
-            
+                .frame(maxWidth: .infinity, alignment: .center)
+
             Spacer()
             
-            Image(systemName: "arrow.left")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 26, height: 21)
-                .opacity(0)  // Invisible spacer to balance the HStack
-                .padding(.trailing)
         }
-        .padding([.top, .horizontal])
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding([.top])
     }
 
     private func filteredClothingItems(for kind: Clothing.Kind) -> [ClothingItem] {

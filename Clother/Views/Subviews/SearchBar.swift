@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CustomSearchBar: View {
     @Binding var searchText: String
-    var onSearch: (Bool) -> Void
+    var onSearch: () -> Void
     var onSettings: () -> Void
     
     // A closure to be executed whenever a new search text is entered. Argument should be search input.
@@ -18,9 +18,12 @@ struct CustomSearchBar: View {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 1.0))
             
-            TextField("Search", text: $searchText, onEditingChanged: onSearch)
+            TextField("Search", text: $searchText)
                 .foregroundColor(.gray)
                 .fontDesign(.monospaced)
+                .onChange(of: searchText) {
+                    onSearch()
+                }
             
             Button(action: onSettings) {
                 Image(systemName: "slider.horizontal.3")
@@ -43,7 +46,7 @@ struct CustomSearchBar_Previews: PreviewProvider {
     static var previews: some View {
         CustomSearchBar(
             searchText: .constant(""),
-            onSearch: { _ in print("Search") },
+            onSearch: {  print("Search") },
             onSettings: { print("Settings") }
         )
     }

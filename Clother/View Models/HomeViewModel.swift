@@ -41,8 +41,12 @@ class HomeViewModel: ObservableObject {
     }
     
     // TODO: Jumps to the specified screen, appending the enum value to the end of our navigation path. Handle edge cases, if any.
-    func navigateTo(screen: Screen) {
-        navPath.append(screen)
+    func navigateTo(screen: any Screen) {
+        if let phase1Screen = screen as? Phase1Screen {
+            navPath.append(phase1Screen)
+        } else if let phase2Screen = screen as? Phase2Screen {
+            navPath.append(phase2Screen)
+        }
     }
     
     // TODO: Returns to the home screen. HINT: Remember that the home screen is presented only when the navigation path is empty
@@ -62,6 +66,14 @@ enum HomeScreen: Int, CaseIterable {
         }
     }
 }
-enum Screen: Codable {
-    case home, uploadClothes, outfitForm, randomizedOutfitForm, clothingForm, confirmRandomizedOutfit, detailedOutfit, detailedClothing, selectClothing
+
+protocol Screen: Codable {
+}
+
+enum Phase1Screen: Screen {
+    case clothingForm, outfitForm, detailedOutfit, randomizedOutfitForm, detailedClothing
+}
+
+enum Phase2Screen: Screen {
+    case confirmRandomizedOutfit, selectClothing, detailedClothing
 }

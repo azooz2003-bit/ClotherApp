@@ -42,7 +42,10 @@ struct ClothingFormView: View {
                 .frame(width: 26, height: 21)
                 .foregroundColor(Color(red: 0.53, green: 0.55, blue: 0.62))
         }
-        .offset(x: -140, y: -10)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.leading, 25)
+        .padding(.vertical)
+        
         VStack (spacing: 10) {
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
@@ -73,6 +76,8 @@ struct ClothingFormView: View {
                     FormDropdown(promptTitle: "Weather", selectedItem: $selectedWeather)
                     FormDropdown(promptTitle: "Fabric", selectedItem: $selectedFabric)
                 }
+                .padding(.vertical, 5)
+                .frame(maxWidth: .infinity)
             }
             RoundedButton(onPress: {
                 if let image = selectedImage {
