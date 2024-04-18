@@ -18,7 +18,16 @@ struct HomeView: View {
      */
     @StateObject var homeVM = HomeViewModel()
     @StateObject var clothesVM = ClothesViewModel()
+    
     @State private var searchText: String = ""
+    @State var buttonPressed: Bool = false
+    
+    @State var isImagePickerShown = false
+    @State var isImageTakerShown = false
+    @State var selectedImage: UIImage?
+    @State var uploadedSelectedImage: UIImage?
+    @State var takenSelectedImage: UIImage?
+    @State var displayNext = false
     
     var body: some View {
         NavigationStack(path: $homeVM.navPath) {
@@ -53,25 +62,25 @@ struct HomeView: View {
                 switch pathElement {
                 case Screen.outfitForm:
                     OutfitFormView(homeVM: homeVM, clothesVM: clothesVM).navigationBarBackButtonHidden()
-                case Screen.uploadClothes:
-                    UploadClothesView().navigationBarBackButtonHidden()
                 case Screen.randomizedOutfitForm:
                     RandomOutfitFormView().navigationBarBackButtonHidden()
                 case Screen.detailedOutfit:
                     OutfitDetailView(homeVM: homeVM, clothesVM: clothesVM).navigationBarBackButtonHidden()
                 case Screen.detailedClothing:
                     ClothingDetailView(homeVM: homeVM, clothesVM: clothesVM).navigationBarBackButtonHidden()
+                case Screen.clothingForm:
+                    ClothingFormView(homeVM: homeVM, clothesVM: clothesVM, selectedImage: $selectedImage).navigationBarBackButtonHidden()
                 default:
-                    HomeView()
+                    Color(.black)
                 }
             })
-            
             CustomSearchBar(
                 searchText: $searchText,
                 onSearch: {
                     _ in clothesVM.search(input: searchText)
                 }, onSettings: {
-                    print("Settings")
+                    clothesVM.createClothing(name: "we", image: UIImage(systemName: "photo")!.pngData()! , type: .accessories, size: .medium, color: .black, weather: .cold, fabric: .cotton)
+                    print(clothesVM.clothesOnDisplay)
                 })
             .padding(.top)
             
@@ -89,11 +98,44 @@ struct HomeView: View {
             }
             
             if (homeVM.activeHomeScreen == .clothes) {
-                RoundedButton(onPress: {
-                    homeVM.navigateTo(screen: .uploadClothes)
-                }, icon: "camera")
-                    .previewLayout(.sizeThatFits)
-                    .transition(.slide.combined(with: .opacity))
+                HStack (spacing: 30){
+                    if (buttonPressed) {
+                        RoundedButton(onPress: {
+                            isImageTakerShown.toggle()
+                            displayNext.toggle()
+                        }, icon: "camera")
+                        .sheet(isPresented: $isImageTakerShown) {
+                            ImagePicker(image: $takenSelectedImage, isShown: $isImageTakerShown, sourceType: .camera)
+                        }
+                    }
+                    if (!buttonPressed) {
+                        RoundedButton(onPress: {
+                            withAnimation (.bouncy) {
+                                buttonPressed.toggle()
+                            }
+                        }, icon: "camera")
+                            .previewLayout(.sizeThatFits)
+                        .transition(.slide.combined(with: .opacity))
+                    } else {
+                        RoundedButton(onPress: {
+                            buttonPressed.toggle()
+                        }, icon: "x.circle")
+                            .previewLayout(.sizeThatFits)
+                        .transition(.slide.combined(with: .opacity))
+                    }
+                    if (buttonPressed) {
+                        RoundedButton(onPress: {
+                            isImagePickerShown.toggle()
+                            displayNext.toggle()
+                        }, icon: "tray.and.arrow.up")
+                        .sheet(isPresented: $isImagePickerShown) {
+                            ImagePicker(image: $selectedImage, isShown: $isImagePickerShown, sourceType: .photoLibrary)
+                        }
+                    }
+                }
+                .onChange(of: selectedImage, perform: { _ in
+                homeVM.navigateTo(screen: .clothingForm)
+            })
             } else {
                 HStack (spacing: 75){
                     RoundedButton(onPress: {
@@ -107,7 +149,6 @@ struct HomeView: View {
                 }
                 .transition(.slide.combined(with: .opacity))
             }
-            
         }
     }
 }

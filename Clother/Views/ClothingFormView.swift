@@ -35,7 +35,7 @@ struct ClothingFormView: View {
     
     var body: some View {
         Button(action: {
-            homeVM.navigateTo(screen: .uploadClothes)
+            homeVM.navigateBackwards()
         }) {
             Image(systemName: "arrow.left")
                 .resizable()
@@ -75,16 +75,16 @@ struct ClothingFormView: View {
                 }
             }
             RoundedButton(onPress: {
-                guard let image = selectedImage else {
-                    return
+                if let image = selectedImage {
+                    clothesVM.createClothing(name: name,
+                                             image: image.pngData() ?? Data(),
+                                             type: selectedType ?? .top,
+                                             size: selectedSize ?? .small,
+                                             color: selectedColor ?? .black,
+                                             weather: selectedWeather ?? .cold,
+                                             fabric: selectedFabric ?? .cotton)
+                    homeVM.navigateBackwards()
                 }
-                clothesVM.createClothing(name: name,
-                                         image: image.pngData() ?? Data(),
-                                         type: selectedType ?? .top,
-                                         size: selectedSize ?? .small,
-                                         color: selectedColor ?? .black,
-                                         weather: selectedWeather ?? .cold,
-                                         fabric: selectedFabric ?? .cotton)
             }, icon: "tray.and.arrow.down")
         }
     }

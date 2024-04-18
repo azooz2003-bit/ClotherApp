@@ -18,13 +18,13 @@ class HomeViewModel: ObservableObject {
     @Published var clothingOnDisplay: ClothingItem?
     @Published var outfitOnDisplay: OutfitItem?
     
-    /* 
+    @Published var selectedClothingKind: Clothing.Kind?
+    
+    /*
      Represents a list of consecutively visited screens in our app. Order matters as the end of the path represents the screen currently viewed. An empty path implies that the user is at the home screen - the root view.
      The elements appended to this path will be of type 'Screen', an enum.
     */
     @Published var navPath: NavigationPath
-    
-    @Published var selectedClothingKind: Clothing.Kind?
     
     init() {
         self.activeHomeScreen = .clothes
@@ -49,7 +49,6 @@ class HomeViewModel: ObservableObject {
     func returnToHome() {
         navPath.removeLast(navPath.count)
     }
-    
 
 }
 

@@ -34,12 +34,12 @@ class ClothesViewModel: ObservableObject {
         }
     
     // These represent the complete, unfiltered collection of closet items.
-    var userOutfits: [OutfitItem]
-    var userClothes: [ClothingItem]
+    @Published var userOutfits: [OutfitItem]
+    @Published var userClothes: [ClothingItem]
     
     // These represent the outfits/clothes that the user is looking at per provided filters (if any) and provided search input (if any).
-    var outfitsOnDisplay: [OutfitItem]
-    var clothesOnDisplay: [ClothingItem]
+    @Published var outfitsOnDisplay: [OutfitItem]
+    @Published var clothesOnDisplay: [ClothingItem]
     
     init() {
         self.userOutfits = []
