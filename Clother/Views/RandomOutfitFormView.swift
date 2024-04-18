@@ -25,7 +25,7 @@ struct RandomOutfitFormView: View {
     var body: some View {
         VStack(spacing: 20) {
             Button(action: {
-                homeVM.returnToHome()
+                homeVM.navigateBackwards()
             }) {
                 Image(systemName: "arrow.left")
                     .resizable()
