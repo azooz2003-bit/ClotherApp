@@ -21,7 +21,7 @@ struct OutfitDetailView: View {
     var body: some View {
         VStack {
             Button(action: {
-                homeVM.returnToHome()
+                homeVM.navigateBackwards()
             }) {
                 Image(systemName: "arrow.left")
                     .resizable()
@@ -85,6 +85,10 @@ struct OutfitDetailView: View {
                 .padding(.horizontal)
             }
         .frame(maxHeight: .infinity , alignment: .top)
+        .navigationDestination(for: Phase2Screen.self, destination: { _ in
+            ClothingDetailView(homeVM: homeVM, clothesVM: clothesVM)
+                .navigationBarBackButtonHidden()
+        })
     }
 }
 #Preview {

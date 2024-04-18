@@ -27,7 +27,7 @@ struct ClothingDetailView: View {
     var body: some View {
         VStack {
             Button(action: {
-                homeVM.returnToHome()
+                homeVM.navigateBackwards()
             }) {
                 Image(systemName: "arrow.left")
                     .resizable()

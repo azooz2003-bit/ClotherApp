@@ -57,6 +57,7 @@ struct FormDropdown<T: Property>: View {
                             print("Selected: \(option.id)")
                             withAnimation {
                                 self.selectedItem = option
+                                showDropdown = false
                             }
                         }) {
                             Text(option.id)
@@ -77,7 +78,10 @@ struct FormDropdown<T: Property>: View {
                                     }
                                 }
                         }
-                       
+                        .onLongPressGesture(perform: {
+                        }, onPressingChanged: { stillPressing in
+                            if stillPressing { selectedItem = option }
+                        })
                     }
                 }
                 .padding(.vertical, 15)

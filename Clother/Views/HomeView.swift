@@ -106,9 +106,7 @@ struct HomeView: View {
                             isImageTakerShown.toggle()
                             displayNext.toggle()
                         }, icon: "camera")
-                        .sheet(isPresented: $isImageTakerShown) {
-                            ImagePicker(image: $takenSelectedImage, isShown: $isImageTakerShown, sourceType: .camera)
-                        }
+                        
                         .transition(.slide.combined(with: .opacity))
                     }
                     if (!buttonPressed) {
@@ -133,9 +131,6 @@ struct HomeView: View {
                             isImagePickerShown.toggle()
                             displayNext.toggle()
                         }, icon: "tray.and.arrow.up")
-                        .sheet(isPresented: $isImagePickerShown) {
-                            ImagePicker(image: $selectedImage, isShown: $isImagePickerShown, sourceType: .photoLibrary)
-                        }
                         .transition(.slide.combined(with: .opacity))
                     }
                 }
@@ -154,6 +149,16 @@ struct HomeView: View {
                         .previewLayout(.sizeThatFits)
                 }
                 .transition(.slide.combined(with: .opacity))
+            }
+        }.overlay {
+            if isImageTakerShown {
+                ImagePicker(image: $selectedImage, isShown: $isImageTakerShown, sourceType: .camera)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .ignoresSafeArea()
+            } else if isImagePickerShown {
+                ImagePicker(image: $selectedImage, isShown: $isImagePickerShown, sourceType: .photoLibrary)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .ignoresSafeArea()
             }
         }
     }
