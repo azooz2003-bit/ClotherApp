@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Foundation
 
 /*struct RandomOutfitFormView: View {
     // TODO: Do the following in this view:
@@ -74,7 +75,6 @@ struct RandomOutfitFormView: View {
         }
     }
 }
-
 
 struct RandomOutfitFormView_Previews: PreviewProvider {
     static var previews: some View {

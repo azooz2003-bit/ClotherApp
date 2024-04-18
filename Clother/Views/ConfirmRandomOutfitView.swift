@@ -32,13 +32,24 @@ import SwiftUI
 struct CreateOutfitView: View {
     @ObservedObject var homeVM: HomeViewModel
     @ObservedObject var clothesVM: ClothesViewModel
+    
     @State private var nameInput: String = ""
-    @Binding var topItem: ClothingItem
-    @Binding var jacketItem: ClothingItem
-    @Binding var bottomItem: ClothingItem
-    @Binding var shoeItem: ClothingItem
-    @Binding var accessoryItems: [ClothingItem]
-
+    @State private var topItem: ClothingItem
+    @State private var jacketItem: ClothingItem
+    @State private var bottomItem: ClothingItem
+    @State private var shoeItem: ClothingItem
+    @State private var accessoryItems: [ClothingItem]
+    
+    public init(homeVM: HomeViewModel, clothesVM: ClothesViewModel, topItem: ClothingItem, jacketItem: ClothingItem, bottomItem: ClothingItem, shoeItem: ClothingItem, accessoryItems: [ClothingItem]) {
+            self.homeVM = homeVM
+            self.clothesVM = clothesVM
+            self._topItem = State(initialValue: topItem)
+            self._jacketItem = State(initialValue: jacketItem)
+            self._bottomItem = State(initialValue: bottomItem)
+            self._shoeItem = State(initialValue: shoeItem)
+            self._accessoryItems = State(initialValue: accessoryItems)
+        }
+    
     var body: some View {
         VStack {
             headerView
@@ -68,7 +79,7 @@ struct CreateOutfitView: View {
 
             Spacer()  // Pushes the button to the left and the title to the center
 
-            Text("Select Outfit")
+            Text("Selected Outfit")
                 .font(.title2)
                 .bold()
                 .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616))
@@ -196,9 +207,13 @@ struct CreateOutfitView: View {
 }
 */
 
-
-
-
-
-
-
+struct CreateOutfitView_Previews: PreviewProvider {
+    static var previews: some View {
+        let topItem1 = ClothingItem.sample
+        let jacketItem1 = ClothingItem.sample
+        let bottomItem1 = ClothingItem.sample
+        let shoeItem1 = ClothingItem.sample
+        let accessoryItems1 = [ClothingItem.sample, ClothingItem.sample, ClothingItem.sample]
+        CreateOutfitView(homeVM: HomeViewModel(), clothesVM: ClothesViewModel(), topItem: topItem1, jacketItem: jacketItem1, bottomItem: bottomItem1, shoeItem: shoeItem1, accessoryItems: accessoryItems1)
+    }
+}
