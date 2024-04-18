@@ -166,8 +166,12 @@ class ClothesViewModel: ObservableObject {
         clothesOnDisplay = userClothes
     }
     // TODO: Manipulate the closet items on display such that only items with the provided input in their name are visible.
-    func search(input: String) {
-        clothesOnDisplay = userClothes.filter {$0.name.lowercased().contains(input.lowercased())}
+    func search(input: String, forClothes: Bool = true) {
+        if forClothes {
+            clothesOnDisplay = userClothes.filter {$0.name.lowercased().contains(input.lowercased()) }
+        } else {
+            outfitsOnDisplay = userOutfits.filter {$0.name.lowercased().contains(input.lowercased()) }
+        }
     }
     
     // TODO: Manipulate the clothing items on display such that only items with the provided filters are visible.

@@ -87,12 +87,16 @@ struct HomeView: View {
             
             if (homeVM.activeHomeScreen == .clothes) {
                 ClosetGrid<ClothingItem>(onItemPress: {
-                    _ in homeVM.navigateTo(screen: .detailedClothing)
+                    item in
+                    homeVM.clothingOnDisplay = item
+                    homeVM.navigateTo(screen: .detailedClothing)
                     
                 }, closetItems: clothesVM.clothesOnDisplay)
             } else {
                 ClosetGrid<OutfitItem>(onItemPress: {
-                    _ in homeVM.navigateTo(screen: .detailedOutfit)
+                    item in
+                    homeVM.outfitOnDisplay = item
+                    homeVM.navigateTo(screen: .detailedOutfit)
                     
                 }, closetItems: clothesVM.outfitsOnDisplay)
             }
