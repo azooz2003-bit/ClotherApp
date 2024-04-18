@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A36ED1FA2BD1AD2E008FB29F /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36ED1F92BD1AD2E008FB29F /* FilterView.swift */; };
 		A3A2BCAC2BC2681B00E1D188 /* NameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A2BCAB2BC2681B00E1D188 /* NameTextField.swift */; };
 		A3A2BCAE2BC268A900E1D188 /* SquareCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A2BCAD2BC268A900E1D188 /* SquareCardView.swift */; };
 		A3A2BCB02BC2696D00E1D188 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A2BCAF2BC2696D00E1D188 /* RoundedButton.swift */; };
@@ -51,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		A36ED1F82BD19AC7008FB29F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A36ED1F92BD1AD2E008FB29F /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		A3A2BCAB2BC2681B00E1D188 /* NameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextField.swift; sourceTree = "<group>"; };
 		A3A2BCAD2BC268A900E1D188 /* SquareCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareCardView.swift; sourceTree = "<group>"; };
 		A3A2BCAF2BC2696D00E1D188 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 			children = (
 				A3CB23C02BBF698A005CBCF4 /* Subviews */,
 				A3CB23AE2BBF68B1005CBCF4 /* HomeView.swift */,
+				A36ED1F92BD1AD2E008FB29F /* FilterView.swift */,
 				A3CB23B02BBF68CB005CBCF4 /* UploadClothesView.swift */,
 				A3CB23B22BBF68DC005CBCF4 /* ClothingFormView.swift */,
 				A3CB23B42BBF68EE005CBCF4 /* OutfitFormView.swift */,
@@ -314,6 +317,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A36ED1FA2BD1AD2E008FB29F /* FilterView.swift in Sources */,
 				A3A2BCAC2BC2681B00E1D188 /* NameTextField.swift in Sources */,
 				A3CB23A92BBF62C6005CBCF4 /* ClothingItem.swift in Sources */,
 				A3A2BCB42BC2AD4600E1D188 /* SelectClothingView.swift in Sources */,

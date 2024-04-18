@@ -25,9 +25,15 @@ struct HomeView: View {
     @State var isImagePickerShown = false
     @State var isImageTakerShown = false
     @State var selectedImage: UIImage?
-    @State var uploadedSelectedImage: UIImage?
-    @State var takenSelectedImage: UIImage?
     @State var displayNext = false
+    
+    @State var typeFilter: Clothing.Kind?
+    @State var sizeFilter: Clothing.Size?
+    @State var colorFilter: Clothing.Color?
+    @State var weatherFilter: Clothing.Weather?
+    @State var fabricFilter: Clothing.Fabric?
+    @State var toggleSheet: Bool = false
+
     
     var body: some View {
         NavigationStack(path: $homeVM.navPath) {
@@ -77,8 +83,7 @@ struct HomeView: View {
                 onSearch: {
                     clothesVM.search(input: searchText)
                 }, onSettings: {
-                    clothesVM.createClothing(name: "we", image: UIImage(systemName: "photo")!.pngData()! , type: .accessories, size: .medium, color: .black, weather: .cold, fabric: .cotton)
-                    print(clothesVM.clothesOnDisplay)
+                    toggleSheet = true
                 })
             .padding(.top)
             
@@ -161,6 +166,22 @@ struct HomeView: View {
                     .ignoresSafeArea()
             }
         }
+        .sheet(isPresented: $toggleSheet, content: {
+            FilterView(toggleSheet: $toggleSheet, typeFilter: $typeFilter, sizeFilter: $sizeFilter, colorFilter: $colorFilter, weatherFilter: $weatherFilter, fabricFilter: $fabricFilter, currentHomeScreen: $homeVM.activeHomeScreen,
+               onConfirm: confirmSheet)
+                .presentationDetents([.height(400), .large])
+        })
+    }
+    
+    func confirmSheet() {
+        if homeVM.activeHomeScreen == .clothes {
+            let filter = Filter(type: typeFilter, size: sizeFilter, color: colorFilter, weather: weatherFilter, fabric: fabricFilter)
+            clothesVM.filterClothes(by: filter)
+        } else {
+            let filter = Filter(type: nil, size: sizeFilter, color: colorFilter, weather: weatherFilter, fabric: fabricFilter)
+            clothesVM.filterOutfits(topFilter: filter, bottomFilter: filter)
+        }
+        toggleSheet = false
     }
 }
 

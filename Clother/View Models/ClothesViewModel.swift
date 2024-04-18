@@ -17,11 +17,7 @@ class ClothesViewModel: ObservableObject {
         selectedItems[type] = item
     }
     
-    @Published var accessoryItems: [ClothingItem] = [
-        ClothingItem(name: "Acc 1", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
-        ClothingItem(name: "Acc 2", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
-        ClothingItem(name: "Acc 3", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
-    ]
+    @Published var accessoryItems: [ClothingItem] = ClothingItem.accessoriesSample
 
     func updateAccessoryItem(_ item: ClothingItem, for index: Int) {
         if index >= 0 && index < accessoryItems.count {

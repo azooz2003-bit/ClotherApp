@@ -21,7 +21,7 @@ struct ClothingDetailView: View {
     var image: Image {
         if let imageData = homeVM.clothingOnDisplay?.displayImage, let uiImage = UIImage(data: imageData) {
             return Image(uiImage: uiImage)
-        } else  { return Image(systemName: "photo") }
+        } else  { return Image(systemName: "tshirt.fill") }
     }
     
     var body: some View {
@@ -51,6 +51,7 @@ struct ClothingDetailView: View {
                     .aspectRatio(contentMode: .fit)
                     .padding()
                     .frame(width: 300, height: 300)
+                    .foregroundStyle(.gray)
             })
             .frame(width: 300, height: 300)
             VStack {
@@ -69,9 +70,9 @@ struct ClothingDetailView: View {
 }
 private func Capsule<T: Property>(property: T) -> some View {
     Text(property.id.capitalizedFirstLetter)
-        .font(.system(size: 10))
+        .font(.system(size: 12))
         .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 0.60))
-        .frame(width: 65, height: 20)
+        .frame(width: 65, height: 25)
         .background(Color(red: 0.957, green: 0.965, blue: 0.988, opacity: 1.0))
         .cornerRadius(15)
         .font(.headline)
@@ -80,9 +81,9 @@ private func Capsule<T: Property>(property: T) -> some View {
 }
 private func TypeCapsule<T: Property>(property: T) -> some View {
     Text(property.id.capitalizedFirstLetter)
-        .font(.system(size: 10))
+        .font(.system(size: 12))
         .foregroundColor(Color(red: 0.529, green: 0.553, blue: 0.616, opacity: 0.60))
-        .frame(width: 80, height: 20)
+        .frame(width: 80, height: 25)
         .background(Color(red: 0.957, green: 0.965, blue: 0.988, opacity: 1.0))
         .cornerRadius(15)
         .font(.headline)

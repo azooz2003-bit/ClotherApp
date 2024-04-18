@@ -41,20 +41,26 @@ struct OutfitDetailView: View {
                 VStack (spacing: 10){
                     HStack (spacing: 10) {
                         ClosetItemView(closetItem: homeVM.outfitOnDisplay?.top ?? .sample, onPress: {
-                            _ in 
+                            item in
+                            homeVM.clothingOnDisplay = item
                             homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
                         })
                         ClosetItemView(closetItem: homeVM.outfitOnDisplay?.jacket ?? .sample, onPress: {
-                            _ in 
+                            item in
+                            homeVM.clothingOnDisplay = item
                             homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
                         })
                     }
                     HStack (spacing: 10) {
                         ClosetItemView(closetItem: homeVM.outfitOnDisplay?.bottom ?? .sample, onPress: {
-                            _ in homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
+                            item in
+                            homeVM.clothingOnDisplay = item
+                            homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
                         })
                         ClosetItemView(closetItem: homeVM.outfitOnDisplay?.shoes ?? .sample, onPress: {
-                            _ in homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
+                            item in
+                            homeVM.clothingOnDisplay = item
+                            homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
                         })
                     }
                 }
@@ -67,16 +73,22 @@ struct OutfitDetailView: View {
                         .font(.system(size: 16))
                         .padding(.bottom, 5)
                     HStack (spacing: 15){
-                        ClosetItemView(closetItem: homeVM.outfitOnDisplay?.accessories[0] ?? .sample, onPress: {
-                            _ in homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
+                        ClosetItemView(closetItem: getAccessory(at: 0), onPress: {
+                            item in
+                            homeVM.clothingOnDisplay = item
+                            homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
                         })
                         .frame(width: 100, height: 100)
-                        ClosetItemView(closetItem: homeVM.outfitOnDisplay?.accessories[1] ?? .sample, onPress: {
-                            _ in homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
+                        ClosetItemView(closetItem: getAccessory(at: 1), onPress: {
+                            item in
+                            homeVM.clothingOnDisplay = item
+                            homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
                         })
                         .frame(width: 100, height: 100)
-                        ClosetItemView(closetItem: homeVM.outfitOnDisplay?.accessories[2] ?? .sample, onPress: {
-                            _ in homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
+                        ClosetItemView(closetItem: getAccessory(at: 2), onPress: {
+                            item in
+                            homeVM.clothingOnDisplay = item
+                            homeVM.navigateTo(screen: Phase2Screen.detailedClothing)
                         })
                         .frame(width: 100, height: 100)
                     }
@@ -89,6 +101,15 @@ struct OutfitDetailView: View {
             ClothingDetailView(homeVM: homeVM, clothesVM: clothesVM)
                 .navigationBarBackButtonHidden()
         })
+    }
+    
+    func getAccessory(at index: Int) -> ClothingItem {
+        if let accessories = homeVM.outfitOnDisplay?.accessories, index < accessories.count {
+            return accessories[index]
+        } else {
+            return .sample
+        }
+        
     }
 }
 #Preview {

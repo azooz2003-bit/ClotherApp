@@ -42,7 +42,7 @@ struct ClosetItemView<T>: View where T : ClosetItem {
     var image: Image {
         if let imageData = closetItem.displayImage, let uiImage = UIImage(data: imageData) {
             return Image(uiImage: uiImage)
-        } else  { return Image(systemName: "photo") }
+        } else  { return Image(systemName: "tshirt.fill") }
     }
     
     let cell = ClotherStyle.GridCell.self
@@ -66,6 +66,7 @@ struct ClosetItemView<T>: View where T : ClosetItem {
                         .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .padding(10)
+                        .foregroundStyle(.gray)
                     
                     
 

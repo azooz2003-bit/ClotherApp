@@ -18,15 +18,11 @@ struct OutfitFormView: View {
     @StateObject var homeVM: HomeViewModel
     @StateObject var clothesVM: ClothesViewModel
     
-    @State private var topItem: ClothingItem = ClothingItem(name: "Top", type: .top, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
-    @State private var jacketItem: ClothingItem = ClothingItem(name: "Jacket", type: .jacket, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
-    @State private var bottomItem: ClothingItem = ClothingItem(name: "Bottom", type: .bottom, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
-    @State private var shoeItem: ClothingItem = ClothingItem(name: "Shoes", type: .shoes, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
-    @State private var accessoryItems: [ClothingItem] = [
-        ClothingItem(name: "Acc 1", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
-        ClothingItem(name: "Acc 2", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData()),
-        ClothingItem(name: "Acc 3", type: .accessories, size: nil, color: nil, weather: nil, fabric: nil, displayImage: UIImage(systemName: "plus.square")?.pngData())
-    ]
+    @State private var topItem: ClothingItem = .topSample
+    @State private var jacketItem: ClothingItem = .jacketSample
+    @State private var bottomItem: ClothingItem = .bottomSample
+    @State private var shoeItem: ClothingItem = .shoesSample
+    @State private var accessoryItems: [ClothingItem] = ClothingItem.accessoriesSample
     
     @State var selectedAcc: Int?
     @State private var name: String = ""
