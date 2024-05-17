@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8EAD5B652BF746AD000DC7FF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8EAD5B642BF746AD000DC7FF /* GoogleService-Info.plist */; };
 		8EC7C1F52BF73F57003D043E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8EC7C1F42BF73F57003D043E /* FirebaseAnalytics */; };
 		8EC7C1F72BF73F57003D043E /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 8EC7C1F62BF73F57003D043E /* FirebaseAnalyticsOnDeviceConversion */; };
 		8EC7C1F92BF73F57003D043E /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8EC7C1F82BF73F57003D043E /* FirebaseAnalyticsSwift */; };
@@ -79,6 +80,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8EAD5B642BF746AD000DC7FF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A36ED1F82BD19AC7008FB29F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A36ED1F92BD1AD2E008FB29F /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		A3A2BCAB2BC2681B00E1D188 /* NameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextField.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 		A3CB23922BBF5EEF005CBCF4 /* Clother */ = {
 			isa = PBXGroup;
 			children = (
+				8EAD5B642BF746AD000DC7FF /* GoogleService-Info.plist */,
 				A36ED1F82BD19AC7008FB29F /* Info.plist */,
 				A3CB23932BBF5EEF005CBCF4 /* ClotherApp.swift */,
 				A3CE8FED2BCA405C005D78D6 /* Utilities */,
@@ -389,6 +392,7 @@
 			files = (
 				A3CB239B2BBF5EF1005CBCF4 /* Preview Assets.xcassets in Resources */,
 				A3CB23982BBF5EF1005CBCF4 /* Assets.xcassets in Resources */,
+				8EAD5B652BF746AD000DC7FF /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
